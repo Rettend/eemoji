@@ -1,2 +1,3 @@
 # eemoji
- (๑•̀ㅂ•́)و✧ Add emojis to git commits
+
+(๑•̀ㅂ•́)و✧ Add emojis to git commits

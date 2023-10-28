@@ -1,0 +1,12 @@
+{
+  "format": "{emoji} {type}: {subject}",
+  "emojis": {
+    "fix": "🔧",
+    "feat": "✨",
+    "docs": "📝",
+    "test": "🧪",
+    "refactor": "♻️",
+    "chore": "🗑️",
+    "init": "🎉"
+  }
+}
