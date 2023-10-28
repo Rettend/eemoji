@@ -5,6 +5,12 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  citty:
+    specifier: ^0.1.4
+    version: 0.1.4
+  consola:
+    specifier: ^3.2.3
+    version: 3.2.3
   cosmiconfig:
     specifier: ^8.3.6
     version: 8.3.6(typescript@5.2.2)
@@ -25,12 +31,6 @@ devDependencies:
   bumpp:
     specifier: ^9.2.0
     version: 9.2.0
-  citty:
-    specifier: ^0.1.4
-    version: 0.1.4
-  consola:
-    specifier: ^3.2.3
-    version: 3.2.3
   eslint:
     specifier: ^8.52.0
     version: 8.52.0
@@ -1551,7 +1551,6 @@ packages:
     resolution: {integrity: sha512-Q3bK1huLxzQrvj7hImJ7Z1vKYJRPQCDnd0EjXfHMidcjecGOMuLrmuQmtWmFkuKLcMThlGh1yCKG8IEc6VeNXQ==}
     dependencies:
       consola: 3.2.3
-    dev: true
 
   /clean-regexp@1.0.0:
     resolution: {integrity: sha512-GfisEZEJvzKrmGWkvfhgzcz/BllN1USeqD2V6tg14OAOgaCD2Z/PUEuxnAZ/nPvmaHRG7a8y77p1T/IRQ4D1Hw==}
@@ -1610,7 +1609,6 @@ packages:
   /consola@3.2.3:
     resolution: {integrity: sha512-I5qxpzLv+sJhTVEoLYNcTW+bThDCPsit0vLNKShZx6rLtpilNpmmeTPaeqJb9ZE9dV3DGaeby6Vuhrw38WjeyQ==}
     engines: {node: ^14.18.0 || >=16.10.0}
-    dev: true
 
   /convert-source-map@2.0.0:
     resolution: {integrity: sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==}

@@ -43,6 +43,8 @@
     "release": "unbuild && bumpp && pnpm publish"
   },
   "dependencies": {
+    "citty": "^0.1.4",
+    "consola": "^3.2.3",
     "cosmiconfig": "^8.3.6"
   },
   "devDependencies": {
@@ -51,8 +53,6 @@
     "@vitest/coverage-istanbul": "^0.31.4",
     "@vitest/ui": "^0.31.4",
     "bumpp": "^9.2.0",
-    "citty": "^0.1.4",
-    "consola": "^3.2.3",
     "eslint": "^8.52.0",
     "typescript": "^5.2.2",
     "unbuild": "^1.2.1",
