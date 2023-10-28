@@ -22,6 +22,7 @@ export const defaultConfig: Config = {
     refactor: '♻️',
     chore: '🗑️',
     init: '🎉',
+    deps: '📦',
   },
 }
 
