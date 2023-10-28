@@ -1,6 +1,6 @@
 {
   "name": "eemoji",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "packageManager": "pnpm@8.10.0",
   "description": "(๑•̀ㅂ•́)و✧ Add emojis to git commits",
   "author": "Rettend",
@@ -50,6 +50,7 @@
     "@types/node": "^20.8.9",
     "@vitest/coverage-istanbul": "^0.31.4",
     "@vitest/ui": "^0.31.4",
+    "bumpp": "^9.2.0",
     "citty": "^0.1.4",
     "consola": "^3.2.3",
     "eslint": "^8.52.0",
