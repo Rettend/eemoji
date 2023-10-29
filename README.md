@@ -6,8 +6,6 @@
 
 v0.2.0:
 
-- [ ] Add `--help` option
-- [ ] Add `--version` option
 - [ ] Add tests with `vitest`
 - [x] Support JSON config files (host json schema on github)
 - [ ] Support nesting (conventional commits scopes)

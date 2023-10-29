@@ -32,9 +32,6 @@ export const main = defineCommand({
       const result = await explorer.search()
       let config: Config
 
-      consola.log(`file: ${result?.filepath}`)
-      consola.log(`config: ${JSON.stringify(result?.config)}`)
-
       if (result)
         config = result.config
       else
@@ -105,14 +102,9 @@ function checkGitHook() {
 
 function checkJsonSchema() {
   const vscodeSettingsFile = '.vscode/settings.json'
-  // PLAN B: "url": "./node_modules/eemoji/eemoji-config-schema.json"
 
   try {
     const content = JSON.parse(fs.readFileSync(vscodeSettingsFile, 'utf-8'))
-
-    consola.log(`file: ${content}`)
-    if (!content)
-      throw new Error('Invalid JSON.')
 
     // Check if 'json.schemas' property exists, if not, initialize it
     if (!content['json.schemas'])
