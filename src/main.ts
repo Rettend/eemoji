@@ -3,7 +3,7 @@ import process from 'node:process'
 import { defineCommand, runMain } from 'citty'
 import { consola } from 'consola'
 import { cosmiconfig } from 'cosmiconfig'
-import { description, name, version } from '../package.json' assert { type: 'json' }
+import { description, name, version } from '../package.json'
 import { type Config, ConfigObject } from './config'
 
 const C = new ConfigObject()
@@ -20,70 +20,14 @@ export const main = defineCommand({
     checkGitHook()
     checkJsonSchema()
 
-    const explorer = cosmiconfig(name, {
-      searchPlaces: [
-        ...C.jsonFiles,
-        ...C.jsFiles,
-      ],
-    })
-
     try {
-      // load config
-      const result = await explorer.search()
-      let config: Config
+      const config = await loadConfig()
 
-      consola.log(`file: ${result?.filepath}`)
-      consola.log(`config: ${JSON.stringify(result?.config, null, 2)}`)
-
-      if (result)
-        config = result.config
-      else
-        config = C.defaultConfig
-
-      if (!config.format)
-        throw new Error('Format missing in config file.')
-      else if (!config.format.match(/{emoji}|{type}|{subject}/g))
-        throw new Error('Invalid format specified in config file.')
-
-      // modify the commit message
       const commitMessageFilePath = process.argv[2] ?? '.git/COMMIT_EDITMSG'
       const commitMessage = fs.readFileSync(commitMessageFilePath, 'utf-8')
       const firstLine = commitMessage.split('\n')[0] ?? ''
 
-      // the separator is whatever character remains after removing the format placeholders, or a space
-      const separator = config.format.replace(/{emoji}|{type}|{subject}/g, '').trim() || ' '
-
-      let [type, subject] = firstLine.split(separator)
-      type = type?.trim()
-      subject = subject?.trim()
-
-      consola.log(`type: ${type}`)
-      consola.log(`subject: ${subject}`)
-
-      if (!type || !subject) {
-        consola.warn(`Invalid commit message: ${firstLine}`)
-        throw new Error('Invalid commit message.')
-      }
-
-      let emoji: string | Record<string, string> | undefined
-
-      // if there is an exclamatory mark, then it's a breaking change
-      if (firstLine.includes('!') && config.emojis.breaking)
-        emoji = config.emojis.breaking
-      else
-        emoji = config.emojis[type.toLowerCase().replace(/\(.*\)/, '')]
-
-      // if the emoji is an object, then it's a nested emoji
-      if (typeof emoji === 'object')
-        emoji = getNestedEmoji(firstLine, emoji)
-
-      if (!emoji)
-        throw new Error(`Emoji for type "${type}" not found.`)
-
-      const newCommitMessage = config.format
-        .replace('{emoji}', emoji)
-        .replace('{type}', type)
-        .replace('{subject}', subject)
+      const newCommitMessage = eemojify(firstLine, config)
 
       fs.writeFileSync(commitMessageFilePath, newCommitMessage)
     }
@@ -93,22 +37,71 @@ export const main = defineCommand({
   },
 })
 
-// get the first nested emoji that is found in the commit message
-// example of a config with nested emojis:
-// "fix": {
-//   ".": "🔧",
-//   "typo": "✏️",
-//   "bug": "🐛"
-// },
-// "feat": "✨",
-// "docs": "📝",
-// "test": "🧪",
-// "refactor": "♻️",
-// 1. we iterate over the entries of the object and check if the commit message contains any of the keys (without the dot)
-// 2. if it does, then we return the value of that key
-// 3. if it doesn't, we return the dot key
+async function loadConfig(): Promise<Config> {
+  const explorer = cosmiconfig(name, {
+    searchPlaces: [
+      ...C.jsonFiles,
+      ...C.jsFiles,
+    ],
+  })
 
-function getNestedEmoji(text: string, emoji: Record<string, string>) {
+  const result = await explorer.search()
+  let config: Config
+
+  consola.log(`file: ${result?.filepath}`)
+  consola.log(`config: ${JSON.stringify(result?.config, null, 2)}`)
+
+  if (result)
+    config = result.config
+  else
+    config = C.defaultConfig
+
+  if (!config.format)
+    throw new Error('Format missing in config file.')
+  else if (!config.format.match(/{emoji}|{type}|{subject}/g))
+    throw new Error('Invalid format specified in config file.')
+
+  return config
+}
+
+export function eemojify(text: string, config: Config): string {
+  // the separator is whatever character remains after removing the format placeholders, or a space
+  const separator = config.format.replace(/{emoji}|{type}|{subject}/g, '').trim() || ' '
+
+  let [type, subject] = text.split(separator)
+  type = type?.trim()
+  subject = subject?.trim()
+
+  consola.log(`type: ${type}`)
+  consola.log(`subject: ${subject}`)
+
+  if (!type || !subject) {
+    consola.warn(`Invalid commit message: ${text}`)
+    throw new Error('Invalid commit message.')
+  }
+
+  let emoji: string | Record<string, string> | undefined
+
+  // if there is an exclamatory mark, then it's a breaking change
+  if (text.includes('!') && config.emojis.breaking)
+    emoji = config.emojis.breaking
+  else
+    emoji = config.emojis[type.toLowerCase().replace(/\(.*\)/, '')]
+
+  // if the emoji is an object, then it's a nested emoji
+  if (typeof emoji === 'object')
+    emoji = getNestedEmoji(text, emoji)
+
+  if (!emoji)
+    throw new Error(`Emoji for type "${type}" not found.`)
+
+  return config.format
+    .replace('{emoji}', emoji)
+    .replace('{type}', type)
+    .replace('{subject}', subject)
+}
+
+function getNestedEmoji(text: string, emoji: Record<string, string>): string | undefined {
   const entries = Object.entries(emoji).filter(([key]) => key !== '.')
 
   for (const [key, value] of entries) {

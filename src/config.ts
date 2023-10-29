@@ -1,5 +1,5 @@
-import { name } from '../package.json' assert { type: 'json' }
-import emojis from './emojis.json' assert { type: 'json' }
+import { name } from '../package.json'
+import emojis from './emojis.json'
 
 export interface Config {
   format: string
