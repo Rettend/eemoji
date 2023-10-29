@@ -1,1 +1,2 @@
-export { main, defineConfig, type Config } from './main'
+export { main } from './main'
+export { defineConfig, type Config } from './config'

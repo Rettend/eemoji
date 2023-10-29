@@ -4,57 +4,7 @@ import { defineCommand, runMain } from 'citty'
 import { consola } from 'consola'
 import { cosmiconfig } from 'cosmiconfig'
 import { description, name, version } from '../package.json' assert { type: 'json' }
-
-export interface Config {
-  format: string
-  override?: boolean
-  emojis: {
-    [key: string]: string
-  }
-}
-
-const defaultConfig: Config = {
-  format: '{emoji} {type}: {subject}',
-  emojis: {
-    fix: '🔧',
-    feat: '✨',
-    docs: '📝',
-    test: '🧪',
-    refactor: '♻️',
-    chore: '🗑️',
-    init: '🎉',
-    deps: '📦',
-    style: '🎨',
-    lint: '🎨',
-    perf: '⚡',
-    ci: '🤖',
-    add: '➕',
-    remove: '➖',
-  },
-}
-
-export function defineConfig(config: Partial<Config>): Config {
-  if (config.override) {
-    return {
-      ...defaultConfig,
-      ...config,
-      emojis: {
-        ...config.emojis,
-      },
-    }
-  }
-  else {
-    consola.warn('no override')
-    return {
-      ...defaultConfig,
-      ...config,
-      emojis: {
-        ...defaultConfig.emojis,
-        ...config.emojis,
-      },
-    }
-  }
-}
+import { type Config, defaultConfig } from './config'
 
 export const main = defineCommand({
   meta: {
@@ -79,10 +29,8 @@ export const main = defineCommand({
 
     try {
       const content = fs.readFileSync(hookFile, 'utf-8')
-      if (!content.includes('eemoji')) {
+      if (!content.includes('eemoji'))
         fs.appendFileSync(hookFile, hookContent)
-        fs.chmodSync(hookFile, '755')
-      }
     }
     catch (err: any) {
       if (err.code === 'ENOENT') {
