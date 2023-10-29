@@ -5,5 +5,6 @@ export default defineConfig({
   emojis: {
     fix: '🐛',
     chore: '🧹',
+    cleanup: '🤢',
   },
 })
