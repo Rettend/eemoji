@@ -3,7 +3,8 @@
     "@antfu"
   ],
   "rules": {
-    "no-console": "warn"
+    "no-console": "warn",
+    "yml/no-empty-mapping-value": "off"
   },
   "ignorePatterns": [
     "coverage",

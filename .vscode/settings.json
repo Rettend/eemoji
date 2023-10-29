@@ -2,7 +2,7 @@
   "json.schemas": [
     {
       "fileMatch": [
-        "/config.json"
+        "/eemojirc.json"
       ],
       "url": "./eemoji-config-schema.json"
     }
