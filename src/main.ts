@@ -24,6 +24,12 @@ const defaultConfig: Config = {
     chore: '🗑️',
     init: '🎉',
     deps: '📦',
+    style: '🎨',
+    lint: '🎨',
+    perf: '⚡',
+    ci: '🤖',
+    add: '➕',
+    remove: '➖',
   },
 }
 
