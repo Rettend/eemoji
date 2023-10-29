@@ -40,7 +40,9 @@ export const main = defineCommand({
       else
         config = C.defaultConfig
 
-      if (!config.format.match(/{emoji}|{type}|{subject}/g))
+      if (!config.format)
+        throw new Error('Format missing in config file.')
+      else if (!config.format.match(/{emoji}|{type}|{subject}/g))
         throw new Error('Invalid format specified in config file.')
 
       // modify the commit message
@@ -48,8 +50,7 @@ export const main = defineCommand({
       const commitMessage = fs.readFileSync(commitMessageFilePath, 'utf-8')
       const firstLine = commitMessage.split('\n')[0] ?? ''
 
-      // the separator is whatever character remains after removing the format placeholders,
-      // if nothing remains, then the separator is a space
+      // the separator is whatever character remains after removing the format placeholders, or a space
       const separator = config.format.replace(/{emoji}|{type}|{subject}/g, '').trim() || ' '
 
       let [type, subject] = firstLine.split(separator)
