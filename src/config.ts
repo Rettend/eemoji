@@ -1,5 +1,3 @@
-import { consola } from 'consola'
-
 export interface Config {
   format: string
   override?: boolean
@@ -22,6 +20,8 @@ export const defaultConfig: Config = {
     style: '🎨',
     lint: '🎨',
     perf: '⚡',
+    revert: '⏪',
+    cleanup: '🧹',
     ci: '🤖',
     add: '➕',
     remove: '➖',
@@ -39,7 +39,6 @@ export function defineConfig(config: Partial<Config>): Config {
     }
   }
   else {
-    consola.warn('no override')
     return {
       ...defaultConfig,
       ...config,
