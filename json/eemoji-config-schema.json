@@ -5,9 +5,6 @@
     "format": {
       "type": "string"
     },
-    "override": {
-      "type": "boolean"
-    },
     "emojis": {
       "type": "object",
       "additionalProperties": {
