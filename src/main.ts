@@ -32,6 +32,9 @@ export const main = defineCommand({
       const result = await explorer.search()
       let config: Config
 
+      consola.log(`file: ${result?.filepath}`)
+      consola.log(`config: ${JSON.stringify(result?.config, null, 2)}`)
+
       if (result)
         config = result.config
       else
@@ -53,12 +56,26 @@ export const main = defineCommand({
       type = type?.trim()
       subject = subject?.trim()
 
+      consola.log(`type: ${type}`)
+      consola.log(`subject: ${subject}`)
+
       if (!type || !subject) {
         consola.warn(`Invalid commit message: ${firstLine}`)
         throw new Error('Invalid commit message.')
       }
 
-      const emoji = config.emojis[type.toLowerCase()]
+      let emoji: string | Record<string, string> | undefined
+
+      // if there is an exclamatory mark, then it's a breaking change
+      if (firstLine.includes('!') && config.emojis.breaking)
+        emoji = config.emojis.breaking
+      else
+        emoji = config.emojis[type.toLowerCase().replace(/\(.*\)/, '')]
+
+      // if the emoji is an object, then it's a nested emoji
+      if (typeof emoji === 'object')
+        emoji = getNestedEmoji(firstLine, emoji)
+
       if (!emoji)
         throw new Error(`Emoji for type "${type}" not found.`)
 
@@ -75,7 +92,31 @@ export const main = defineCommand({
   },
 })
 
-runMain(main)
+// get the first nested emoji that is found in the commit message
+// example of a config with nested emojis:
+// "fix": {
+//   ".": "🔧",
+//   "typo": "✏️",
+//   "bug": "🐛"
+// },
+// "feat": "✨",
+// "docs": "📝",
+// "test": "🧪",
+// "refactor": "♻️",
+// 1. we iterate over the entries of the object and check if the commit message contains any of the keys (without the dot)
+// 2. if it does, then we return the value of that key
+// 3. if it doesn't, we return the dot key
+
+function getNestedEmoji(text: string, emoji: Record<string, string>) {
+  const entries = Object.entries(emoji).filter(([key]) => key !== '.')
+
+  for (const [key, value] of entries) {
+    if (text.includes(key))
+      return value
+  }
+
+  return emoji['.']
+}
 
 function checkGitHook() {
   const hookContent = '#!/bin/sh\n'
@@ -125,3 +166,5 @@ function checkJsonSchema() {
     else consola.error(err)
   }
 }
+
+runMain(main)

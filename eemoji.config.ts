@@ -4,8 +4,12 @@ export default defineConfig({
   format: '{emoji} {type}: {subject}',
   emojis: {
     fix: '🐛',
-    chore: '🧹',
+    chore: {
+      '.': '🧹',
+      'release': '🔖',
+    },
     cleanup: '🤢',
     docs: '✏️',
+    breaking: '🚨',
   },
 })

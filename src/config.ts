@@ -4,7 +4,7 @@ import emojis from './emojis.json' assert { type: 'json' }
 export interface Config {
   format: string
   emojis: {
-    [key: string]: string
+    [key: string]: string | Record<string, string>
   }
 }
 
