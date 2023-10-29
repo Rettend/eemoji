@@ -7,12 +7,13 @@ import { description, name, version } from '../package.json' assert { type: 'jso
 
 export interface Config {
   format: string
+  override?: boolean
   emojis: {
     [key: string]: string
   }
 }
 
-export const defaultConfig: Config = {
+const defaultConfig: Config = {
   format: '{emoji} {type}: {subject}',
   emojis: {
     fix: '🔧',
@@ -26,6 +27,29 @@ export const defaultConfig: Config = {
   },
 }
 
+export function defineConfig(config: Partial<Config>): Config {
+  if (config.override) {
+    return {
+      ...defaultConfig,
+      ...config,
+      emojis: {
+        ...config.emojis,
+      },
+    }
+  }
+  else {
+    consola.warn('no override')
+    return {
+      ...defaultConfig,
+      ...config,
+      emojis: {
+        ...defaultConfig.emojis,
+        ...config.emojis,
+      },
+    }
+  }
+}
+
 export const main = defineCommand({
   meta: {
     name,
@@ -35,11 +59,9 @@ export const main = defineCommand({
   async run() {
     consola.info(`Eemoji ${version} 😎\n`)
 
-    // create git hook !
+    // create git hook
     const hooksDir = '.git/hooks'
     const hookFile = '.git/hooks/prepare-commit-msg'
-
-    // npx eemoji $1
 
     const hookContent = '#!/bin/sh\n'
       + 'npx eemoji $1\n'
@@ -51,8 +73,8 @@ export const main = defineCommand({
 
     try {
       const content = fs.readFileSync(hookFile, 'utf-8')
-      if (content !== hookContent) {
-        fs.writeFileSync(hookFile, hookContent)
+      if (!content.includes('eemoji')) {
+        fs.appendFileSync(hookFile, hookContent)
         fs.chmodSync(hookFile, '755')
       }
     }
@@ -66,19 +88,10 @@ export const main = defineCommand({
 
     const explorer = cosmiconfig(name, {
       searchPlaces: [
-        'package.json',
-        `.${name}rc`,
-        `.${name}rc.json`,
-        `.${name}rc.yaml`,
-        `.${name}rc.yml`,
         `.${name}rc.js`,
         `.${name}rc.ts`,
         `.${name}rc.mjs`,
         `.${name}rc.cjs`,
-        `.config/${name}rc`,
-        `.config/${name}rc.json`,
-        `.config/${name}rc.yaml`,
-        `.config/${name}rc.yml`,
         `.config/${name}rc.js`,
         `.config/${name}rc.ts`,
         `.config/${name}rc.cjs`,
@@ -88,13 +101,16 @@ export const main = defineCommand({
         `${name}.config.cjs`,
       ],
     })
-    let result = null
-    let config: Config = defaultConfig
 
     try {
-      // load the cosmiconfig file
-      result = await explorer.search()
-      config = result?.config ?? defaultConfig
+      // load config
+      const result = await explorer.search()
+      let config: Config
+
+      if (result)
+        config = result.config
+      else
+        config = defaultConfig
 
       if (!config.format.match(/{emoji}|{type}|{subject}/g))
         throw new Error('Invalid format specified in config file.')
@@ -104,21 +120,20 @@ export const main = defineCommand({
       const commitMessage = fs.readFileSync(commitMessageFilePath, 'utf-8')
       const firstLine = commitMessage.split('\n')[0] ?? ''
 
-      // split the commit message into type and subject by whatever the format is in the config:
-      let [type, subject] = firstLine.split(config.format.replace(/{emoji}|{type}|{subject}/g, '').trim())
+      // the separator is whatever character remains after removing the format placeholders,
+      // if nothing remains, then the separator is a space
+      const separator = config.format.replace(/{emoji}|{type}|{subject}/g, '').trim() || ' '
+
+      let [type, subject] = firstLine.split(separator)
       type = type?.trim()
       subject = subject?.trim()
-
-      consola.log(`format: "${config.format.replace(/{emoji}|{type}|{subject}/g, '').trim()}"`)
-      consola.log(`type: "${type}"`)
-      consola.log(`subject: "${subject}"`)
 
       if (!type || !subject) {
         consola.warn(`Invalid commit message: ${firstLine}`)
         throw new Error('Invalid commit message.')
       }
 
-      const emoji = config.emojis[type]
+      const emoji = config.emojis[type.toLowerCase()]
       if (!emoji)
         throw new Error(`Emoji for type "${type}" not found.`)
 
