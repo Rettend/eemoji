@@ -4,7 +4,9 @@ import { defineCommand, runMain } from 'citty'
 import { consola } from 'consola'
 import { cosmiconfig } from 'cosmiconfig'
 import { description, name, version } from '../package.json' assert { type: 'json' }
-import { type Config, defaultConfig, vscodeSettings } from './config'
+import { type Config, ConfigObject } from './config'
+
+const C = new ConfigObject()
 
 export const main = defineCommand({
   meta: {
@@ -20,18 +22,8 @@ export const main = defineCommand({
 
     const explorer = cosmiconfig(name, {
       searchPlaces: [
-        ...vscodeSettings['json.schemas'][0]?.fileMatch ?? [],
-        `.${name}rc.js`,
-        `.${name}rc.ts`,
-        `.${name}rc.mjs`,
-        `.${name}rc.cjs`,
-        `.config/${name}rc.js`,
-        `.config/${name}rc.ts`,
-        `.config/${name}rc.cjs`,
-        `${name}.config.js`,
-        `${name}.config.ts`,
-        `${name}.config.mjs`,
-        `${name}.config.cjs`,
+        ...C.jsonFiles,
+        ...C.jsFiles,
       ],
     })
 
@@ -46,7 +38,7 @@ export const main = defineCommand({
       if (result)
         config = result.config
       else
-        config = defaultConfig
+        config = C.defaultConfig
 
       if (!config.format.match(/{emoji}|{type}|{subject}/g))
         throw new Error('Invalid format specified in config file.')
@@ -89,26 +81,23 @@ export const main = defineCommand({
 runMain(main)
 
 function checkGitHook() {
-  const hooksDir = '.git/hooks'
-  const hookFile = '.git/hooks/prepare-commit-msg'
-
   const hookContent = '#!/bin/sh\n'
     + 'npx eemoji $1\n'
 
-  if (!fs.existsSync(hooksDir)) {
-    fs.mkdirSync(hooksDir)
+  if (!fs.existsSync(C.hooksDir)) {
+    fs.mkdirSync(C.hooksDir)
     consola.success('Created: .git/hooks')
   }
 
   try {
-    const content = fs.readFileSync(hookFile, 'utf-8')
+    const content = fs.readFileSync(C.hookFile, 'utf-8')
     if (!content.includes('eemoji'))
-      fs.appendFileSync(hookFile, hookContent)
+      fs.appendFileSync(C.hookFile, hookContent)
   }
   catch (err: any) {
     if (err.code === 'ENOENT') {
-      fs.writeFileSync(hookFile, hookContent)
-      fs.chmodSync(hookFile, '755')
+      fs.writeFileSync(C.hookFile, hookContent)
+      fs.chmodSync(C.hookFile, '755')
     }
     else { consola.error(err) }
   }
@@ -121,21 +110,25 @@ function checkJsonSchema() {
   try {
     const content = JSON.parse(fs.readFileSync(vscodeSettingsFile, 'utf-8'))
 
+    consola.log(`file: ${content}`)
+    if (!content)
+      throw new Error('Invalid JSON.')
+
     // Check if 'json.schemas' property exists, if not, initialize it
     if (!content['json.schemas'])
       content['json.schemas'] = []
 
     // Check if the schema is already present, if not, add it
     if (!content['json.schemas'].some(
-      (schema: typeof vscodeSettings['json.schemas'][0]) => schema.url?.includes(name),
+      (schema: typeof C.vscodeSettings['json.schemas'][0]) => schema.url?.includes(name),
     )) {
-      content['json.schemas'].push(vscodeSettings['json.schemas'][0])
+      content['json.schemas'].push(C.vscodeSettings['json.schemas'][0])
       fs.writeFileSync(vscodeSettingsFile, JSON.stringify(content, null, 2))
     }
   }
   catch (err: any) {
-    if (err.code === 'ENOENT')
-      fs.writeFileSync(vscodeSettingsFile, JSON.stringify(vscodeSettings, null, 2))
+    if (err.code === 'ENOENT' || err.message.includes('Unexpected end of JSON input'))
+      fs.writeFileSync(vscodeSettingsFile, JSON.stringify(C.vscodeSettings, null, 2))
 
     else consola.error(err)
   }
