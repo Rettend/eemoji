@@ -4,7 +4,7 @@ import { defineCommand, runMain } from 'citty'
 import { consola } from 'consola'
 import { cosmiconfig } from 'cosmiconfig'
 import { description, name, version } from '../package.json' assert { type: 'json' }
-import { type Config, defaultConfig } from './config'
+import { type Config, defaultConfig, vscodeSettings } from './config'
 
 export const main = defineCommand({
   meta: {
@@ -15,33 +15,12 @@ export const main = defineCommand({
   async run() {
     consola.info(`Eemoji ${version} 😎\n`)
 
-    // create git hook
-    const hooksDir = '.git/hooks'
-    const hookFile = '.git/hooks/prepare-commit-msg'
-
-    const hookContent = '#!/bin/sh\n'
-      + 'npx eemoji $1\n'
-
-    if (!fs.existsSync(hooksDir)) {
-      fs.mkdirSync(hooksDir)
-      consola.success('Created: .git/hooks')
-    }
-
-    try {
-      const content = fs.readFileSync(hookFile, 'utf-8')
-      if (!content.includes('eemoji'))
-        fs.appendFileSync(hookFile, hookContent)
-    }
-    catch (err: any) {
-      if (err.code === 'ENOENT') {
-        fs.writeFileSync(hookFile, hookContent)
-        fs.chmodSync(hookFile, '755')
-      }
-      else { consola.error(err) }
-    }
+    checkGitHook()
+    checkJsonSchema()
 
     const explorer = cosmiconfig(name, {
       searchPlaces: [
+        ...vscodeSettings['json.schemas'][0]?.fileMatch ?? [],
         `.${name}rc.js`,
         `.${name}rc.ts`,
         `.${name}rc.mjs`,
@@ -60,6 +39,9 @@ export const main = defineCommand({
       // load config
       const result = await explorer.search()
       let config: Config
+
+      consola.log(`file: ${result?.filepath}`)
+      consola.log(`config: ${JSON.stringify(result?.config)}`)
 
       if (result)
         config = result.config
@@ -105,3 +87,56 @@ export const main = defineCommand({
 })
 
 runMain(main)
+
+function checkGitHook() {
+  const hooksDir = '.git/hooks'
+  const hookFile = '.git/hooks/prepare-commit-msg'
+
+  const hookContent = '#!/bin/sh\n'
+    + 'npx eemoji $1\n'
+
+  if (!fs.existsSync(hooksDir)) {
+    fs.mkdirSync(hooksDir)
+    consola.success('Created: .git/hooks')
+  }
+
+  try {
+    const content = fs.readFileSync(hookFile, 'utf-8')
+    if (!content.includes('eemoji'))
+      fs.appendFileSync(hookFile, hookContent)
+  }
+  catch (err: any) {
+    if (err.code === 'ENOENT') {
+      fs.writeFileSync(hookFile, hookContent)
+      fs.chmodSync(hookFile, '755')
+    }
+    else { consola.error(err) }
+  }
+}
+
+function checkJsonSchema() {
+  const vscodeSettingsFile = '.vscode/settings.json'
+  // PLAN B: "url": "./node_modules/eemoji/eemoji-config-schema.json"
+
+  try {
+    const content = JSON.parse(fs.readFileSync(vscodeSettingsFile, 'utf-8'))
+
+    // Check if 'json.schemas' property exists, if not, initialize it
+    if (!content['json.schemas'])
+      content['json.schemas'] = []
+
+    // Check if the schema is already present, if not, add it
+    if (!content['json.schemas'].some(
+      (schema: typeof vscodeSettings['json.schemas'][0]) => schema.url?.includes(name),
+    )) {
+      content['json.schemas'].push(vscodeSettings['json.schemas'][0])
+      fs.writeFileSync(vscodeSettingsFile, JSON.stringify(content, null, 2))
+    }
+  }
+  catch (err: any) {
+    if (err.code === 'ENOENT')
+      fs.writeFileSync(vscodeSettingsFile, JSON.stringify(vscodeSettings, null, 2))
+
+    else consola.error(err)
+  }
+}

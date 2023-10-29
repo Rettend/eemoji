@@ -40,7 +40,7 @@
     "lint": "eslint .",
     "lint:fix": "pnpm run lint --fix",
     "typecheck": "tsc --noEmit",
-    "release": "unbuild && bumpp && pnpm publish"
+    "release": "bumpp && unbuild && pnpm publish"
   },
   "dependencies": {
     "citty": "^0.1.4",

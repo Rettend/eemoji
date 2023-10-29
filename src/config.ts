@@ -1,3 +1,5 @@
+import { name } from '../package.json' assert { type: 'json' }
+
 export interface Config {
   format: string
   override?: boolean
@@ -25,6 +27,7 @@ export const defaultConfig: Config = {
     ci: '🤖',
     add: '➕',
     remove: '➖',
+    wip: '🚧',
   },
 }
 
@@ -48,4 +51,23 @@ export function defineConfig(config: Partial<Config>): Config {
       },
     }
   }
+}
+
+export const vscodeSettings = {
+  'json.schemas': [
+    {
+      fileMatch: [
+        'package.json',
+        `.${name}rc`,
+        `.${name}rc.json`,
+        `.${name}rc.yaml`,
+        `.${name}rc.yml`,
+        `.config/${name}rc`,
+        `.config/${name}rc.json`,
+        `.config/${name}rc.yaml`,
+        `.config/${name}rc.yml`,
+      ],
+      url: `https://rettend.github.io/${name}/${name}-config-schema.json`,
+    },
+  ],
 }
