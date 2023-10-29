@@ -35,7 +35,7 @@ export const main = defineCommand({
   async run() {
     consola.info(`Eemoji ${version} 😎\n`)
 
-    // create git hook
+    // create git hook !
     const hooksDir = '.git/hooks'
     const hookFile = '.git/hooks/prepare-commit-msg'
 
