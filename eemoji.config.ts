@@ -6,5 +6,6 @@ export default defineConfig({
     fix: '🐛',
     chore: '🧹',
     cleanup: '🤢',
+    docs: '✏️',
   },
 })
