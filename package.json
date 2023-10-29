@@ -15,9 +15,6 @@
     "commit",
     "emoji"
   ],
-  "bin": {
-    "eemoji": "./dist/index.mjs"
-  },
   "sideEffects": false,
   "exports": {
     ".": {
@@ -29,6 +26,9 @@
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
+  "bin": {
+    "eemoji": "./dist/index.mjs"
+  },
   "files": [
     "dist"
   ],
