@@ -48,9 +48,6 @@ async function loadConfig(): Promise<Config> {
   const result = await explorer.search()
   let config: Config
 
-  consola.log(`file: ${result?.filepath}`)
-  consola.log(`config: ${JSON.stringify(result?.config, null, 2)}`)
-
   if (result)
     config = result.config
   else
@@ -71,9 +68,6 @@ export function eemojify(text: string, config: Config): string {
   let [type, subject] = text.split(separator)
   type = type?.trim()
   subject = subject?.trim()
-
-  consola.log(`type: ${type}`)
-  consola.log(`subject: ${subject}`)
 
   if (!type || !subject) {
     consola.warn(`Invalid commit message: ${text}`)
