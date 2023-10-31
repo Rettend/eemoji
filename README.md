@@ -21,6 +21,7 @@ Hi, read the `README.md` first (starting with [Install](#🚀-install)). This em
 | `chore` | `cleanup` | 🧹 | cleaned up code, removed logs and debug stuff, making things ready for production |
 | `chore` | `license` | 📜 | changed the license |
 | `chore` | `deps` | 📦 | updated dependencies |
+| `chore` | `readme` | 📕,📗,📘,📙 | update the README |
 | `release` | | 🔖 | |
 | `cleanup` | | 🧹 | |
 | `deps` | `.` | 📦 | added/removed/changed dependencies |
@@ -141,11 +142,11 @@ Commit message:
 
 #### Format
 
-The format specifies how the commit message will be formatted (`{emoji} {type}: {subject}` is the default format btw).
+The format specifies how the commit message will be formatted (`{emoji} {type}: {subject}` is the default format btw, this property is optional).
 
 - `{type}`: this determines the emoji
 - `{subject}`: rest of the commit message
-- `{emoji}`: the place of the emoji to be insertedW
+- `{emoji}`: the place of the emoji to be inserted
 
 Some other formats I could think of:
 
@@ -175,9 +176,12 @@ export default defineConfig({
       'deps': '📦'
     },
     feat: '✨',
+    bounty: '💎,💲,💸,💰'
   }
 })
 ```
+
+You can specify multiple emojis by separating them with commas and a **random** one will be chosen.
 
 Either using conventional commit scopes or just including the subtype in the commit message will work.
 
@@ -188,11 +192,17 @@ Commit message:
 - before: `fix: navbar issue`
 - after: `🔧 fix: navbar issue`
 
+<hr>
+
 - before: `fix: typo in README`
 - after: `✏️ fix: typo in README`
 
+<hr>
+
 - before: `chore: release v1.0.0`
 - after: `🔖 chore: release v1.0.0`
+
+<hr>
 
 - before: `chore(deps): update eslint`
 - after: `📦 chore(deps): update eslint`
