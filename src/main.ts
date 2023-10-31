@@ -65,9 +65,13 @@ export function eemojify(text: string, config: Config): string {
   // the separator is whatever character remains after removing the format placeholders, or a space
   const separator = config.format.replace(/{emoji}|{type}|{subject}/g, '').trim() || ' '
 
-  let [type, subject] = text.split(separator)
-  type = type?.trim()
-  subject = subject?.trim()
+  const separatorIndex = text.indexOf(separator)
+  const type = text.substring(0, separatorIndex).trim()
+  const subject = text.substring(separatorIndex + separator.length).trim()
+
+  consola.log(`separator: "${separator}"`)
+  consola.log(`type: "${type}"`)
+  consola.log(`subject: "${subject}"`)
 
   if (!type || !subject) {
     consola.warn(`Invalid commit message: ${text}`)
