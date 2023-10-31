@@ -7,6 +7,7 @@ import { description, name, version } from '../package.json'
 import { type Config, ConfigObject } from './config'
 
 const C = new ConfigObject()
+let DEBUG = 0
 
 export const main = defineCommand({
   meta: {
@@ -23,9 +24,21 @@ export const main = defineCommand({
     try {
       const config = await loadConfig()
 
-      const commitMessageFilePath = process.argv[2] ?? '.git/COMMIT_EDITMSG'
+      let commitMessageFilePath: string
+      if (process.argv[2] === '.')
+        commitMessageFilePath = '.git/COMMIT_EDITMSG'
+      else
+        commitMessageFilePath = process.argv[2] ?? '.git/COMMIT_EDITMSG'
+
       const commitMessage = fs.readFileSync(commitMessageFilePath, 'utf-8')
       const firstLine = commitMessage.split('\n')[0] ?? ''
+      DEBUG = Number(process.argv[3]) ?? 0
+
+      if (DEBUG >= 2) {
+        process.argv.forEach((arg, i) => {
+          consola.log(`argv[${i}]: ${arg}`)
+        })
+      }
 
       const newCommitMessage = eemojify(firstLine, config)
 
@@ -69,14 +82,17 @@ export function eemojify(text: string, config: Config): string {
   const type = text.substring(0, separatorIndex).trim()
   const subject = text.substring(separatorIndex + separator.length).trim()
 
-  consola.log(`separator: "${separator}"`)
-  consola.log(`type: "${type}"`)
-  consola.log(`subject: "${subject}"`)
+  if (DEBUG >= 2)
+    consola.log(`\nconfig: ${JSON.stringify(config)}\n`)
 
-  if (!type || !subject) {
-    consola.warn(`Invalid commit message: ${text}`)
-    throw new Error('Invalid commit message.')
+  if (DEBUG) {
+    consola.log(`separator: "${separator}"`)
+    consola.log(`type: "${type}"`)
+    consola.log(`subject: "${subject}"`)
   }
+
+  if (!type || !subject)
+    throw new Error('Invalid commit message.')
 
   let emoji: string | Record<string, string> | undefined
 
@@ -87,8 +103,13 @@ export function eemojify(text: string, config: Config): string {
     emoji = config.emojis[type.toLowerCase().replace(/\(.*\)/, '')]
 
   // if the emoji is an object, then it's a nested emoji
-  if (typeof emoji === 'object')
+  if (typeof emoji === 'object') {
     emoji = getNestedEmoji(text, emoji)
+    consola.log(`nested emoji: "${emoji}"`)
+  }
+  else if (DEBUG) {
+    consola.log(`emoji: "${emoji}"`)
+  }
 
   if (!emoji)
     throw new Error(`Emoji for type "${type}" not found.`)
