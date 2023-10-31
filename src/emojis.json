@@ -11,7 +11,8 @@
     "release": "🔖",
     "cleanup": "🧹",
     "license": "📜",
-    "deps": "📦"
+    "deps": "📦",
+    "readme": "📕,📗,📘,📙"
   },
   "release": "🔖",
   "cleanup": "🧹",

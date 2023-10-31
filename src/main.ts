@@ -89,6 +89,9 @@ export function eemojify(text: string, config: Config): string {
   if (!emoji)
     throw new Error(`Emoji for type "${type}" not found.`)
 
+  if (emoji.includes(','))
+    emoji = emoji.trim().split(',')[Math.floor(Math.random() * emoji.split(',').length)] ?? emoji
+
   return config.format
     .replace('{emoji}', emoji)
     .replace('{type}', type)
