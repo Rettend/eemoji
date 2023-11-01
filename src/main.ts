@@ -176,10 +176,13 @@ function checkJsonSchema() {
     }
   }
   catch (err: any) {
-    if (err.code === 'ENOENT' || err.message.includes('Unexpected end of JSON input'))
+    if (err.code === 'ENOENT' || err.message.includes('Unexpected end of JSON input')) {
+      if (!fs.existsSync('.vscode'))
+        fs.mkdirSync('.vscode')
       fs.writeFileSync(vscodeSettingsFile, JSON.stringify(C.vscodeSettings, null, 2))
+    }
 
-    else consola.error(err)
+    else { consola.error(err) }
   }
 }
 
