@@ -1,6 +1,6 @@
 import * as fs from 'node:fs'
 import process from 'node:process'
-import { defineCommand, runMain } from 'citty'
+import { defineCommand } from 'citty'
 import { consola } from 'consola'
 import { cosmiconfig } from 'cosmiconfig'
 import { description, name, version } from '../package.json'
@@ -185,5 +185,3 @@ function checkJsonSchema() {
     else { consola.error(err) }
   }
 }
-
-runMain(main)
