@@ -4,7 +4,7 @@ This tiny CLI tool automatically adds an emoji to your commit messages based on 
 
 ## 😎 Emojis
 
-Hi, read the `README.md` first (starting with [Install](#🚀-install)). This emoji table is for quick reference.
+Hi, read the `README.md` first (starting with [Install](#-install)). This emoji table is for quick reference.
 
 <details open>
 <summary><b>Close/open gigantic table</b></summary>
@@ -78,8 +78,16 @@ npm i -g eemoji
 
 Just run it once in your project to initialize it:
 
+### Local
+
 ```bash
 npx eemoji
+```
+
+### Global
+
+```bash
+eemoji
 ```
 
 **Commands:**
@@ -89,7 +97,7 @@ npx eemoji
 
 ## 🦾 Config
 
-The default configuration is here: [emojis.json](./src/emojis.json), or scrutinize the [Emojis](#😎-emojis) section for details.
+The default configuration is here: [emojis.json](./src/emojis.json), or scrutinize the [Emojis](#-emojis) section for details.
 
 This is used if no config file is found in the project.
 
