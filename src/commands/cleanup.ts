@@ -13,7 +13,6 @@ export default defineCommand({
     description: 'Cleanup git hook and settings.json',
   },
   async run() {
-    // remove git hook
     consola.start('Removing git hook...')
 
     if (fs.existsSync(C.hookFile)) {
@@ -24,7 +23,8 @@ export default defineCommand({
       consola.info(`No ${C.hookFile} found`)
     }
 
-    // remove vscode settings
+    consola.start('Removing VSCode settings...')
+
     if (fs.existsSync(C.vscodeSettingsFile)) {
       const settings = JSON.parse(fs.readFileSync(C.vscodeSettingsFile, 'utf-8'))
       if (settings['json.schemas']) {
@@ -37,7 +37,7 @@ export default defineCommand({
       if (Object.keys(settings).length === 0) {
         fs.unlinkSync(C.vscodeSettingsFile)
         fs.rmdirSync(path.dirname(C.vscodeSettingsFile))
-        consola.log(`Removed ${C.vscodeSettingsFile}`)
+        consola.success(`Removed ${C.vscodeSettingsFile}`)
       }
       else {
         fs.writeFileSync(C.vscodeSettingsFile, JSON.stringify(settings, null, 2))
@@ -48,12 +48,21 @@ export default defineCommand({
       consola.log(`No ${C.vscodeSettingsFile} found`)
     }
 
-    // remove config files
-    [...C.jsFiles, ...C.jsonFiles].forEach((file: string) => {
+    consola.start('Removing config files...')
+    let removedFiles = false
+
+    ;[...C.jsFiles, ...C.jsonFiles.filter(file => file !== 'package.json')].forEach((file: string) => {
       if (fs.existsSync(file)) {
         fs.unlinkSync(file)
         consola.success(`Removed ${file}`)
+        removedFiles = true
       }
     })
+
+    if (!removedFiles)
+      consola.info('No config files found')
+
+    else
+      consola.success('Cleanup complete!')
   },
 })

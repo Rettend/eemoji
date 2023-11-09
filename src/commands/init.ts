@@ -1,11 +1,16 @@
 import * as fs from 'node:fs'
 import * as path from 'node:path'
 import process from 'node:process'
+import { fileURLToPath } from 'node:url'
+import { dirname } from 'node:path'
 import { defineCommand } from 'citty'
 import { consola } from 'consola'
 import { name } from '../../package.json'
 import type { ConfigType, JsFiles, JsonFiles } from './../config'
 import { ConfigObject, configTypes } from './../config'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 const C = new ConfigObject()
 
@@ -49,9 +54,6 @@ export default defineCommand({
         })),
       })
 
-    consola.log(`Config type: ${configType}`)
-    consola.log(`Selected config type: ${selectedConfigType}`)
-
     if (selectedConfigType === 'json') {
       if (await consola.prompt('Add JSON schema for types? (VSCode only)', {
         type: 'confirm',
@@ -59,14 +61,13 @@ export default defineCommand({
       }))
         checkJsonSchema()
 
-      consola.start(`Creating config file: ${C.jsonFiles[0]}`)
       createConfigFile(C.jsonFiles[0], JSON.stringify(C.defaultConfig, null, 2))
     }
     else if (selectedConfigType === 'ts') {
       createConfigFile(C.jsFiles[0], C.defaultTsConfig)
     }
 
-    consola.success('Initialized eemoji in current git repository.')
+    consola.success('Initialized eemoji!')
   },
 })
 
@@ -76,8 +77,8 @@ function createConfigFile(filename: JsonFiles | JsFiles, content: string): void 
 }
 
 function checkGitHook() {
-  const hookContent = '#!/bin/sh\n'
-    + 'node ./bin/eemoji.mjs run $1\n'
+  // without __dirname, we get ./bin/hook.sh and copy it to .git/hooks/prepare-commit-msg
+  const sourceHookPath = path.join(__dirname, '..', '..', 'bin', 'hook.sh')
 
   if (!fs.existsSync(C.hooksDir)) {
     fs.mkdirSync(C.hooksDir)
@@ -85,16 +86,11 @@ function checkGitHook() {
   }
 
   try {
-    const content = fs.readFileSync(C.hookFile, 'utf-8')
-    if (!content.includes('eemoji'))
-      fs.appendFileSync(C.hookFile, hookContent)
+    fs.copyFileSync(sourceHookPath, C.hookFile)
+    fs.chmodSync(C.hookFile, '755')
   }
   catch (err: any) {
-    if (err.code === 'ENOENT') {
-      fs.writeFileSync(C.hookFile, hookContent)
-      fs.chmodSync(C.hookFile, '755')
-    }
-    else { consola.error(err) }
+    consola.error(err)
   }
 }
 

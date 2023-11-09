@@ -32,7 +32,8 @@ export function eemojify(text: string, config: Config, DEBUG?: number): string {
   // if the emoji is an object, then it's a nested emoji
   if (typeof emoji === 'object') {
     emoji = getNestedEmoji(text, emoji)
-    consola.log(`nested emoji: "${emoji}"`)
+    if (DEBUG)
+      consola.log(`nested emoji: "${emoji}"`)
   }
   else if (DEBUG) {
     consola.log(`emoji: "${emoji}"`)
