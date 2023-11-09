@@ -34,7 +34,7 @@
   ],
   "scripts": {
     "build": "unbuild",
-    "dev": "unbuild && node ./dist/index.mjs",
+    "dev": "npx eemoji",
     "stub": "unbuild --stub",
     "test": "vitest --ui --coverage --api 9527",
     "lint": "eslint .",
