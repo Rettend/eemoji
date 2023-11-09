@@ -2,6 +2,13 @@
 
 This tiny CLI tool automatically adds an emoji to your commit messages based on conventional commit types.
 
+TODO v1.0.0
+
+- [ ] test everything
+- [ ] rewrite readme about the new config
+- [ ] fix github desktop bug (npx)
+- [ ] verify tests
+
 ## 😎 Emojis
 
 Hi, read the `README.md` first (starting with [Install](#-install)). This emoji table is for quick reference.
@@ -14,16 +21,16 @@ Hi, read the `README.md` first (starting with [Install](#-install)). This emoji 
 | `fix` | `.` | 🔧 | general fix |
 | `fix` | `typo` | ✏️ | fixed typo in code, docs, ui, etc. |
 | `fix` | `bug` | 🐛 | fixed a bug |
-| `fix` | `lint` | 🧼 | fixed linting errors |
-| `lint` | | 🧼 | |
 | `chore` | `.` | 🗑️ | did some chores |
 | `chore` | `release` | 🔖 | new release commit (pairs well with [bumpp](https://github.com/antfu/bumpp) and [changelogithub](https://github.com/antfu/changelogithub)) |
 | `chore` | `cleanup` | 🧹 | cleaned up code, removed logs and debug stuff, making things ready for production |
 | `chore` | `license` | 📜 | changed the license |
+| `chore` | `lint` | 🧼 | fixed linting errors |
 | `chore` | `deps` | 📦 | updated dependencies |
 | `chore` | `readme` | 📕,📗,📘,📙 | update the README |
 | `release` | | 🔖 | |
 | `cleanup` | | 🧹 | |
+| `lint` | | 🧼 | |
 | `deps` | `.` | 📦 | added/removed/changed dependencies |
 | `deps` | `up` | ⬆️ | updated dependencies |
 | `deps` | `down` | ⬇️ | downgraded dependencies |
@@ -92,6 +99,7 @@ eemoji
 
 **Commands:**
 
+- `--cleanup`: Remove the git hook and the JSON schema from `settings.json`
 - `--version`: Show version number
 - `-h, --help`: Show help (useless)
 
