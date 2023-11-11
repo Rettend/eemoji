@@ -41,11 +41,11 @@ export default defineCommand({
       }
       else {
         fs.writeFileSync(C.vscodeSettingsFile, JSON.stringify(settings, null, 2))
-        consola.log(`Updated ${C.vscodeSettingsFile}`)
+        consola.info(`Updated ${C.vscodeSettingsFile}`)
       }
     }
     else {
-      consola.log(`No ${C.vscodeSettingsFile} found`)
+      consola.info(`No ${C.vscodeSettingsFile} found`)
     }
 
     consola.start('Removing config files...')
