@@ -280,6 +280,17 @@ You also get types thanks to the JSON schema.
 
 </details>
 
+## ⚠️ Known issues
+
+There is a [known issue](https://github.com/desktop/desktop/issues/12562#issuecomment-1444580040) with GitHub Desktop.
+
+You need to follow these steps to make it work:
+
+- Add `C:\Program Files\Git\bin` to your system `PATH` environment variable next to `C:\Program Files\Git\cmd`
+- Move these to the top of your `PATH`!
+- Run this command in your repository: `git config stash.usebuiltin false`
+- Restart GitHub Desktop
+
 ## 📜 License
 
 [MIT](./LICENSE)
