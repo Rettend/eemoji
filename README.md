@@ -2,6 +2,8 @@
 
 This tiny CLI tool automatically adds an emoji to your commit messages based on conventional commit types.
 
+Also it's fully customizable: add your own emojis and trigger words, change the format of the commit message, etc.
+
 It runs with the `prepare-commit-msg` git hook (every time your make a commit) and modifies your commit messages.
 
 ## 😎 Emojis
@@ -29,8 +31,9 @@ Hi, read the `README.md` first (starting with [Install](#-install)). This emoji 
 | `deps` | `.` | 📦 | added/removed/changed dependencies |
 | `deps` | `up` | ⬆️ | updated dependencies |
 | `deps` | `down` | ⬇️ | downgraded dependencies |
+| `docs` | `.` | 📝 | documented something |
+| `docs` | `readme` | 📕,📗,📘,📙 | |
 | `feat` | | ✨ | introduced a new feature |
-| `docs` | | 📝 | documented something |
 | `test` | | 🧪 | worked on tests |
 | `refactor` | | ♻️ | refactored code, achieved the same with less |
 | `init` | | 🎉 | started a new project! |
@@ -282,14 +285,19 @@ You also get types thanks to the JSON schema.
 
 ## ⚠️ Known issues
 
-There is a [known issue](https://github.com/desktop/desktop/issues/12562#issuecomment-1444580040) with GitHub Desktop.
+**`eemoji` WILL NOT work with GitHub Desktop on Windows.**
 
-You need to follow these steps to make it work:
+There is an [open issue](https://github.com/desktop/desktop/issues/12562#issuecomment-1444580040) with GitHub Desktop.
 
-- Add `C:\Program Files\Git\bin` to your system `PATH` environment variable next to `C:\Program Files\Git\cmd`
-- Move these to the top of your `PATH`!
-- Run this command in your repository: `git config stash.usebuiltin false`
+Follow these steps:
+
+- Move `C:\Program Files\Git\cmd` to the top of your system `PATH`
+- Add `C:\Program Files\Git\bin` just below that
 - Restart GitHub Desktop
+
+If it continues to fail to work, try this as well and restart GitHub Desktop:
+
+- Run this command once: `git config stash.usebuiltin false`
 
 ## 📜 License
 
