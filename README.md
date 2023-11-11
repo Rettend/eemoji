@@ -56,9 +56,9 @@ Hi, read the `README.md` first (starting with [Install](#-install)). This emoji 
 There are two different ways to install `eemoji`:
 
 - [Locally](#local): add it to a node project as a dev dependency. This way you can share it with other contributors.
-- [Globally](#global): install it globally to use it everywhere, <u>not just in node projects</u>. Note that you still need to initialize it in a repository for it to work there.
+- [Globally](#global): install it globally to use it everywhere, <u>not just in node projects</u>. Note that you will need to initialize it in other repository for it to work there.
 
-Thanks to the `postinstall` script, after installing `eemoji` locally, it will automatically create the git hook. This means it will just work but it's especially useful when other users are going to contribute to your repository.
+Thanks to the `postinstall` script, after installing `eemoji` locally/globally, it will automatically create the git hook for the current repo. This means it will just work, but it's especially useful when other users are going to contribute to your repository.
 
 ### Local
 
