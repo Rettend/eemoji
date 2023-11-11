@@ -81,7 +81,7 @@ function checkGitHook() {
   const sourceHookPath = path.join(__dirname, '..', '..', 'bin', 'hook.sh')
 
   if (!fs.existsSync(C.hooksDir)) {
-    fs.mkdirSync(C.hooksDir)
+    fs.mkdirSync(C.hooksDir, { recursive: true })
     consola.success('Created: .git/hooks')
   }
 
