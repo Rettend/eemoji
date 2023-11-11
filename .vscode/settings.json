@@ -1,0 +1,18 @@
+{
+  "json.schemas": [
+    {
+      "fileMatch": [
+        "package.json",
+        ".eemojirc",
+        ".eemojirc.json",
+        ".eemojirc.yaml",
+        ".eemojirc.yml",
+        ".config/eemojirc",
+        ".config/eemojirc.json",
+        ".config/eemojirc.yaml",
+        ".config/eemojirc.yml"
+      ],
+      "url": "https://rettend.github.io/eemoji/eemoji-config-schema.json"
+    }
+  ]
+}

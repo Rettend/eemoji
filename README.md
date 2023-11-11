@@ -8,6 +8,7 @@ TODO v1.0.0
 - [ ] rewrite readme about the new config
 - [ ] fix github desktop bug (npx)
 - [ ] verify tests
+- [ ] postinstall?
 
 ## 😎 Emojis
 
