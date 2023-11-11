@@ -77,11 +77,11 @@ function createConfigFile(filename: JsonFiles | JsFiles, content: string): void 
 }
 
 function checkGitHook() {
-  // without __dirname, we get ./bin/hook.sh and copy it to .git/hooks/prepare-commit-msg
+  // TODO: why ../..?
   const sourceHookPath = path.join(__dirname, '..', '..', 'bin', 'hook.sh')
 
   if (!fs.existsSync(C.hooksDir)) {
-    fs.mkdirSync(C.hooksDir, { recursive: true })
+    fs.mkdirSync(C.hooksDir)
     consola.success('Created: .git/hooks')
   }
 

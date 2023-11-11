@@ -1,3 +1,5 @@
+import * as path from 'node:path'
+import process from 'node:process'
 import { name } from '../package.json'
 import emojis from './emojis.json'
 
@@ -69,10 +71,10 @@ export default defineConfig({
     ],
   }
 
-  vscodeSettingsFile = '.vscode/settings.json'
-  hooksDir = '.git/hooks'
-  hookFile = '.git/hooks/prepare-commit-msg'
-  gitCommitFile = '.git/COMMIT_EDITMSG'
+  vscodeSettingsFile = path.join(process.cwd(), '.vscode/settings.json')
+  hooksDir = path.join(process.cwd(), '.git/hooks')
+  hookFile = path.join(process.cwd(), '.git/hooks/prepare-commit-msg')
+  gitCommitFile = path.join(process.cwd(), '.git/COMMIT_EDITMSG')
 }
 
 export function defineConfig(config: Partial<Config>): Config {
