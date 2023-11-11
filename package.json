@@ -1,6 +1,6 @@
 {
   "name": "eemoji",
-  "version": "0.2.4",
+  "version": "1.0.0",
   "packageManager": "pnpm@8.10.0",
   "description": "(๑•̀ㅂ•́)و✧ Add emojis to git commits",
   "author": "Rettend",
@@ -27,20 +27,22 @@
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "bin": {
-    "eemoji": "./bin/eemoji.mjs"
+    "eemoji": "./bin/eemoji.mjs",
+    "eemoji-hook": "./bin/hook.sh"
   },
   "files": [
     "dist"
   ],
   "scripts": {
     "build": "unbuild",
-    "dev": "unbuild && node ./dist/index.mjs",
+    "dev": "npx eemoji",
     "stub": "unbuild --stub",
     "test": "vitest --ui --coverage --api 9527",
     "lint": "eslint .",
     "lint:fix": "pnpm run lint --fix",
     "typecheck": "tsc --noEmit",
-    "release": "bumpp && unbuild && pnpm publish"
+    "release": "bumpp && unbuild && pnpm publish",
+    "postinstall": "node ./bin/eemoji.mjs init -c none"
   },
   "dependencies": {
     "citty": "^0.1.4",

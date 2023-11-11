@@ -1,6 +1,6 @@
 // import the function and the default config
 import { describe, expect, test } from 'vitest'
-import { eemojify } from '../src/main'
+import { eemojify } from '../src/utils/emoji'
 import { ConfigObject } from '../src/config'
 
 const C = new ConfigObject()
