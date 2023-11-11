@@ -31,7 +31,6 @@ jobs:
         env:
           SKIP_POSTINSTALL: true
         run: nci
-        
 
       - name: Lint
         run: nr lint
