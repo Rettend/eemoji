@@ -71,10 +71,10 @@ export default defineConfig({
     ],
   }
 
-  vscodeSettingsFile = path.join(process.cwd(), '.vscode/settings.json')
-  hooksDir = path.join(process.cwd(), '.git/hooks')
-  hookFile = path.join(process.cwd(), '.git/hooks/prepare-commit-msg')
-  gitCommitFile = path.join(process.cwd(), '.git/COMMIT_EDITMSG')
+  vscodeSettingsFile = path.join(process.env.INIT_CWD || process.cwd(), '.vscode/settings.json')
+  hooksDir = path.join(process.env.INIT_CWD || process.cwd(), '.git/hooks')
+  hookFile = path.join(process.env.INIT_CWD || process.cwd(), '.git/hooks/prepare-commit-msg')
+  gitCommitFile = path.join(process.env.INIT_CWD || process.cwd(), '.git/COMMIT_EDITMSG')
 }
 
 export function defineConfig(config: Partial<Config>): Config {
