@@ -42,7 +42,7 @@
     "lint:fix": "pnpm run lint --fix",
     "typecheck": "tsc --noEmit",
     "release": "bumpp && unbuild && pnpm publish",
-    "postinstall": "./bin/eemoji.mjs init -c none"
+    "postinstall": "node ./bin/eemoji.mjs init -c none"
   },
   "dependencies": {
     "citty": "^0.1.4",
