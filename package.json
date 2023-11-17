@@ -28,7 +28,8 @@
   "types": "dist/index.d.ts",
   "bin": {
     "eemoji": "./bin/eemoji.mjs",
-    "eemoji-hook": "./bin/hook.sh"
+    "eemoji-hook": "./bin/hook.sh",
+    "eemoji-postinstall": "./bin/postinstall.js"
   },
   "files": [
     "dist",
@@ -43,9 +44,7 @@
     "lint:fix": "pnpm run lint --fix",
     "typecheck": "tsc --noEmit",
     "release": "bumpp && unbuild && pnpm publish",
-    "postinstall": "run-script-os",
-    "postinstall:linux": "if [ \"$SKIP_POSTINSTALL\" != \"true\" ]; then node ./bin/eemoji.mjs init -c none; fi",
-    "postinstall:default": "node ./bin/eemoji.mjs init -c none",
+    "postinstall": "node ./bin/postinstall.js",
     "preuninstall": "node ./bin/eemoji.mjs cleanup"
   },
   "dependencies": {
@@ -60,7 +59,6 @@
     "@vitest/ui": "^0.31.1",
     "bumpp": "^9.2.0",
     "eslint": "^8.52.0",
-    "run-script-os": "^1.1.6",
     "typescript": "^5.2.2",
     "unbuild": "^1.2.1",
     "vite": "^4.5.0",
