@@ -31,7 +31,8 @@
     "eemoji-hook": "./bin/hook.sh"
   },
   "files": [
-    "dist"
+    "dist",
+    "bin"
   ],
   "scripts": {
     "build": "unbuild",
