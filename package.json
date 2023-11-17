@@ -42,7 +42,8 @@
     "lint:fix": "pnpm run lint --fix",
     "typecheck": "tsc --noEmit",
     "release": "bumpp && unbuild && pnpm publish",
-    "postinstall": "if [ \"$SKIP_POSTINSTALL\" != \"true\" ]; then node ./bin/eemoji.mjs init -c none; fi"
+    "postinstall": "if [ \"$SKIP_POSTINSTALL\" != \"true\" ]; then node ./bin/eemoji.mjs init -c none; fi",
+    "preuninstall": "node ./bin/eemoji.mjs cleanup"
   },
   "dependencies": {
     "citty": "^0.1.4",
