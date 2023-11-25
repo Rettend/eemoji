@@ -26,15 +26,19 @@ export default defineCommand({
       alias: 'd',
       default: '0',
     },
+    test: {
+      type: 'boolean',
+      description: 'Test mode (input a commit message instead of a file path)',
+      alias: 't',
+      default: false,
+    },
   },
   async run(ctx) {
     const DEBUG = Number(ctx.args.DEBUG)
 
     try {
       const config = await loadConfig()
-
-      const commitMessage = fs.readFileSync(ctx.args.commit_file, 'utf-8')
-      const firstLine = commitMessage.split('\n')[0] ?? ''
+      let commitMessage: string
 
       if (DEBUG >= 2) {
         process.argv.forEach((arg, i) => {
@@ -42,9 +46,24 @@ export default defineCommand({
         })
       }
 
-      const newCommitMessage = eemojify(firstLine, config, DEBUG)
+      if (ctx.args.test) {
+        commitMessage = await consola.prompt('Commit message:', {
+          placeholder: 'enter a commit message for testing...',
+          initial: 'feat: add new feature',
+        })
 
-      fs.writeFileSync(ctx.args.commit_file, newCommitMessage)
+        if (commitMessage)
+          eemojify(commitMessage, config, DEBUG)
+      }
+      else {
+        commitMessage = fs.readFileSync(ctx.args.commit_file, 'utf-8')
+
+        commitMessage = commitMessage.split('\n')[0] ?? ''
+
+        const newCommitMessage = eemojify(commitMessage, config, DEBUG)
+
+        fs.writeFileSync(ctx.args.commit_file, newCommitMessage)
+      }
     }
     catch (err: any) {
       consola.error(err)
