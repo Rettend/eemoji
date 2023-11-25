@@ -52,8 +52,11 @@ export default defineCommand({
           initial: 'feat: add new feature',
         })
 
-        if (commitMessage)
-          eemojify(commitMessage, config, DEBUG)
+        if (commitMessage) {
+          const newCommitMessage = eemojify(commitMessage, config, DEBUG)
+
+          consola.log(`\n${newCommitMessage}`)
+        }
       }
       else {
         commitMessage = fs.readFileSync(ctx.args.commit_file, 'utf-8')
