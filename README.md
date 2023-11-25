@@ -31,6 +31,8 @@ Hi, read the `README.md` first (starting with [Install](#-install)). This emoji 
 | `deps` | `.` | 📦 | added/removed/changed dependencies |
 | `deps` | `up` | ⬆️ | updated dependencies |
 | `deps` | `down` | ⬇️ | downgraded dependencies |
+| `build` | `.` | 🦺 | work regarding build processes |
+| `build` | `deps` | 📦 | dependabot PRs |
 | `docs` | `.` | 📝 | documented something |
 | `docs` | `readme` | 📕,📗,📘,📙 | |
 | `feat` | | ✨ | introduced a new feature |
@@ -40,7 +42,6 @@ Hi, read the `README.md` first (starting with [Install](#-install)). This emoji 
 | `initial` | | 🎉 | this is for the default GitHub commit message (untested) |
 | `perf` | | ⚡ | improved performance, achieve the same faster |
 | `config` | | ⚙️ | changed configuration files |
-| `build` | | 🦺 | work regarding build processes |
 | `style` | | 🎨 | design changes, style changes |
 | `ui` | | 🪟 | worked on UI, UX or layout |
 | `text` | | 💬 | changed string literals, text content |
