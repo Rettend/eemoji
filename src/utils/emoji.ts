@@ -21,23 +21,10 @@ export function eemojify(text: string, config: Config, DEBUG?: number): string {
   if (!type || !subject)
     throw new Error('Invalid commit message.')
 
-  let emoji: string | Record<string, string> | undefined
+  let emoji = getEmoji(type, text, config, DEBUG)
 
-  // if there is an exclamatory mark, then it's a breaking change
-  if (text.includes('!') && config.emojis.breaking)
-    emoji = config.emojis.breaking
-  else
-    emoji = config.emojis[type.toLowerCase().replace(/\(.*\)/, '')]
-
-  // if the emoji is an object, then it's a nested emoji
-  if (typeof emoji === 'object') {
-    emoji = getNestedEmoji(text, emoji)
-    if (DEBUG)
-      consola.log(`nested emoji: "${emoji}"`)
-  }
-  else if (DEBUG) {
+  if (DEBUG)
     consola.log(`emoji: "${emoji}"`)
-  }
 
   if (!emoji)
     throw new Error(`Emoji for type "${type}" not found.`)
@@ -51,13 +38,34 @@ export function eemojify(text: string, config: Config, DEBUG?: number): string {
     .replace('{subject}', subject)
 }
 
-function getNestedEmoji(text: string, emoji: Record<string, string>): string | undefined {
-  const entries = Object.entries(emoji).filter(([key]) => key !== '.')
+function getEmoji(type: string, text: string, config: Config, DEBUG?: number): string | undefined {
+  if (text.includes('!') && config.emojis.breaking)
+    return config.emojis.breaking
 
-  for (const [key, value] of entries) {
-    if (text.includes(key))
-      return value
+  const emojiKey = Object.keys(config.emojis).find(key => key.split('|').includes(type.toLowerCase().replace(/\(.*\)/, '').trim()))
+
+  if (!emojiKey)
+    return undefined
+
+  const emoji = config.emojis[emojiKey]
+
+  if (typeof emoji === 'object') {
+    if (DEBUG)
+      consola.log(`nested emoji: ${JSON.stringify(emoji)}`)
+
+    const entries = Object.entries(emoji).filter(([key]) => key !== '.')
+
+    for (const [key, value] of entries) {
+      if (key.split('|').some(k => text.toLowerCase().includes(k.toLowerCase())))
+        return value
+    }
+
+    return emoji['.']
   }
-
-  return emoji['.']
+  else if (typeof emoji === 'string') {
+    return emoji
+  }
+  else {
+    return undefined
+  }
 }

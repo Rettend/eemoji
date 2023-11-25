@@ -3,11 +3,13 @@ import process from 'node:process'
 import { name } from '../package.json'
 import emojis from './emojis.json'
 
+type EmojiConfig = Partial<typeof emojis> & {
+  [key: string]: string | Record<string, string>
+}
+
 export interface Config {
   format: string
-  emojis: {
-    [key: string]: string | Record<string, string>
-  }
+  emojis: EmojiConfig
 }
 
 export const configTypes = [
@@ -21,10 +23,10 @@ export type JsFiles = typeof ConfigObject.prototype.jsFiles[number]
 export type JsonFiles = typeof ConfigObject.prototype.jsonFiles[number]
 
 export class ConfigObject {
-  defaultConfig: Config = {
+  defaultConfig = {
     format: '{emoji} {type}: {subject}',
     emojis,
-  }
+  } satisfies Config
 
   defaultTsConfig = `import { defineConfig } from 'eemoji'
 

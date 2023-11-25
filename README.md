@@ -38,8 +38,7 @@ Hi, read the `README.md` first (starting with [Install](#-install)). This emoji 
 | `feat` | | ✨ | introduced a new feature |
 | `test` | | 🧪 | worked on tests |
 | `refactor` | | ♻️ | refactored code, achieved the same with less |
-| `init` | | 🎉 | started a new project! |
-| `initial` | | 🎉 | this is for the default GitHub commit message (untested) |
+| `init` &#124; `initial` | | 🎉 | started a new project! |
 | `perf` | | ⚡ | improved performance, achieve the same faster |
 | `config` | | ⚙️ | changed configuration files |
 | `style` | | 🎨 | design changes, style changes |
@@ -208,31 +207,37 @@ Commit message:
 
 #### Nested emojis
 
-You can also nest emojis to create subtypes. After finding the type, `eemoji` will look for subtypes in the commit message.
+You can also nest emojis to create subtypes.
 
-Either using conventional commit scopes or just including the subtype in the commit message will work.
+After finding the type, `eemoji` will look for subtypes in the commit message.
 
-You can specify multiple emojis by separating them with commas and a **random** one will be chosen.
+This is useful for conventional commit scopes, but you can include the subtype anywhere in the commit message.
+
+Notes:
+
+- the `'.'` is the fallback subtype
+- specify multiple aliases for a type by separating them with pipes: `feat|feature`
+- specify multiple emojis by separating them with commas and a **random** one will be chosen: `💎,💲,💸,💰`
 
 ```ts
 import { defineConfig } from 'eemoji'
 
 export default defineConfig({
   emojis: {
-    fix: {
+    'fix': {
       '.': '🔧',
       'typo': '✏️',
       'bug': '🐛'
     },
-    chore: {
+    'chore': {
       '.': '🗑️',
       'release': '🔖',
       'cleanup': '🧹',
       'license': '📜',
       'deps': '📦'
     },
-    feat: '✨',
-    bounty: '💎,💲,💸,💰'
+    'feat|feature': '✨',
+    'bounty': '💎,💲,💸,💰'
   }
 })
 ```
