@@ -35,7 +35,9 @@ Hi, read the `README.md` first (starting with [Install](#-install)). This emoji 
 | `build` | `deps` | 📦 | dependabot PRs |
 | `docs` | `.` | 📝 | documented something |
 | `docs` | `readme` | 📕,📗,📘,📙 | |
-| `feat` | | ✨ | introduced a new feature |
+| `feat` | `.` | ✨ | introduced a new feature |
+| `feat` | `enhance` | 💎 | made something a little better (but still include in release notes) |
+| `enhance` | | 💎 | made something a little better (omit from release notes) |
 | `test` | | 🧪 | worked on tests |
 | `refactor` | | ♻️ | refactored code, achieved the same with less |
 | `init` &#124; `initial` | | 🎉 | started a new project! |
