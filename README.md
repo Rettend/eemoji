@@ -139,6 +139,7 @@ eemoji run
 **Flags:**
 
 - `-d, --debug`: the debug level, `0` for none, `1` for some, `2` for all
+- `-t, --test`: test mode, input a commit message instead of a file
 
 ## 🦾 Config
 
