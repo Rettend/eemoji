@@ -1,6 +1,11 @@
-# eemoji
+<h1 align="left">
+  eemoji
 
-![eemoji](https://img.shields.io/badge/😎%20eemoji-fccf1d?style=for-the-badge)
+  <span align="center">
+
+  [![eemoji](https://img.shields.io/badge/😎%20eemoji-fccf1d?style=for-the-badge)](https://github.com/Rettend/eemoji)
+  </span>
+</h1>
 
 This tiny CLI tool automatically adds an emoji to your commit messages based on conventional commit types.
 
@@ -309,6 +314,15 @@ Follow these steps:
 If it continues to fail to work, try this as well and restart GitHub Desktop:
 
 - Run this command once: `git config stash.usebuiltin false`
+
+## 💛 Copy the Badge
+
+[![eemoji](https://img.shields.io/badge/😎%20eemoji-fccf1d?style=for-the-badge)](  https://github.com/Rettend/eemoji)
+
+```md
+[![eemoji](https://img.shields.io/badge/😎%20eemoji-fccf1d?style=for-the-badge)](
+  https://github.com/Rettend/eemoji)
+```
 
 ## 📜 License
 
