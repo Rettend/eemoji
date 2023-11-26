@@ -69,7 +69,7 @@ export default defineConfig({
     'json.schemas': [
       {
         fileMatch: [
-          ...this.jsonFiles,
+          ...this.jsonFiles.filter(file => file === 'package.json'),
         ],
         url: `https://rettend.github.io/${name}/${name}-config-schema.json`,
       },

@@ -1,0 +1,17 @@
+{
+  "json.schemas": [
+    {
+      "fileMatch": [
+        ".eemojirc.json",
+        ".eemojirc",
+        ".eemojirc.yaml",
+        ".eemojirc.yml",
+        ".config/eemojirc",
+        ".config/eemojirc.json",
+        ".config/eemojirc.yaml",
+        ".config/eemojirc.yml"
+      ],
+      "url": "./json/eemoji-config-schema.json"
+    }
+  ]
+}
