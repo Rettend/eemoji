@@ -1,9 +1,14 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
+  "required": [
+    "emojis",
+    "format"
+  ],
   "properties": {
     "format": {
-      "type": "string"
+      "type": "string",
+      "default": "{emoji} {type}: {subject}"
     },
     "emojis": {
       "type": "object",
@@ -19,6 +24,60 @@
             }
           }
         ]
+      },
+      "default": {
+        "fix": {
+          ".": "🔧",
+          "typo": "✏️",
+          "bug": "🐛"
+        },
+        "chore": {
+          ".": "🗑️",
+          "release": "🔖",
+          "cleanup": "🧹",
+          "license": "📜",
+          "lint": "🧼",
+          "deps": "📦",
+          "readme": "📕,📗,📘,📙"
+        },
+        "release": "🔖",
+        "cleanup": "🧹",
+        "lint": "🧼",
+        "deps": {
+          ".": "📦",
+          "up": "⬆️",
+          "down": "⬇️"
+        },
+        "build": {
+          ".": "🦺",
+          "deps": "📦"
+        },
+        "docs": {
+          ".": "📝",
+          "readme": "📕,📗,📘,📙"
+        },
+        "feat": {
+          ".": "✨",
+          "enhance": "💎"
+        },
+        "enhance": "💎",
+        "test": "🧪",
+        "refactor": "♻️",
+        "init|initial": "🎉",
+        "up": "⬆️",
+        "down": "⬇️",
+        "perf": "⚡",
+        "config": "⚙️",
+        "style": "🎨",
+        "ui": "🪟",
+        "text": "💬",
+        "breaking": "💥",
+        "revert": "⏪",
+        "ci": "🦾",
+        "i18n": "🌐",
+        "wip": "🚧",
+        "add": "➕",
+        "remove": "➖"
       }
     }
   }
