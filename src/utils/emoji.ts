@@ -1,6 +1,21 @@
 import { consola } from 'consola'
 import { type Config } from './../config'
 
+/**
+ * Formats a commit message with an emoji based on the type.
+ *
+ * @param text - The whole commit message text.
+ * @param config - The configuration object containing the format and emojis.
+ * @param DEBUG - Optional debug level (0=off, 1=some, 2=all)
+ * @returns The formatted commit message.
+ * @throws Error if the commit message is invalid or if the emoji for the given type is not found.
+ * @example
+ * `feat: add new feature`
+ *
+ * becomes
+ *
+ * `✨ feat: add new feature`
+ */
 export function eemojify(text: string, config: Config, DEBUG?: number): string {
   // the separator is whatever character remains after removing the format placeholders, or a space
   const separator = config.format.replace(/{emoji}|{type}|{subject}/g, '').trim() || ' '
@@ -47,7 +62,7 @@ function getEmoji(type: string, text: string, config: Config, DEBUG?: number): s
   if (!emojiKey)
     return undefined
 
-  const emoji = config.emojis[emojiKey]
+  const emoji = config.emojis[emojiKey as keyof Config['emojis']]
 
   if (typeof emoji === 'object') {
     if (DEBUG)
@@ -68,4 +83,14 @@ function getEmoji(type: string, text: string, config: Config, DEBUG?: number): s
   else {
     return undefined
   }
+}
+
+export function unemojify(text: string, config: Config): string {
+  const values = Object.values(config.emojis).flatMap(
+    value => typeof value === 'object' ? Object.values(value) : value,
+  ).join('|').replace(/,/g, '|')
+
+  const regex = new RegExp(`(${values})`, 'gi')
+
+  return text.replace(regex, '').trim()
 }

@@ -4,7 +4,7 @@ import { defineCommand } from 'citty'
 import { consola } from 'consola'
 import { cosmiconfig } from 'cosmiconfig'
 import { name } from '../../package.json'
-import { eemojify } from '../utils/emoji'
+import { eemojify, unemojify } from '../utils/emoji'
 import { type Config, ConfigObject } from './../config'
 
 const C = new ConfigObject()
@@ -49,13 +49,15 @@ export default defineCommand({
       if (ctx.args.test) {
         commitMessage = await consola.prompt('Commit message:', {
           placeholder: 'enter a commit message for testing...',
-          initial: 'feat: add new feature',
+          initial: unemojify(fs.readFileSync(ctx.args.commit_file, 'utf-8'), config),
         })
 
         if (commitMessage) {
           const newCommitMessage = eemojify(commitMessage, config, DEBUG)
 
           consola.log(`\n${newCommitMessage}`)
+
+          fs.writeFileSync(ctx.args.commit_file, newCommitMessage)
         }
       }
       else {
