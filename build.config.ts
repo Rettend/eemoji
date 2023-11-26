@@ -12,5 +12,7 @@ export default defineBuildConfig({
   externals: [
     'consola',
     'citty',
+    'cosmiconfig',
+    'lodash-es',
   ],
 })

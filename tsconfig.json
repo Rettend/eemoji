@@ -1,14 +1,27 @@
 {
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "allowUnreachableCode": false,
-    "allowUnusedLabels": false,
+    "target": "esnext",
+    "lib": [
+      "esnext"
+    ],
+    "useDefineForClassFields": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "types": [
+      "node"
+    ],
+    "resolveJsonModule": true,
     "declaration": false,
     "declarationMap": false,
+    "sourceMap": true,
+    "verbatimModuleSyntax": true,
+    "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "exactOptionalPropertyTypes": true,
     "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "node",
+    "strict": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "exactOptionalPropertyTypes": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,
     "noImplicitReturns": true,
@@ -17,21 +30,8 @@
     "noUnusedLocals": false,
     "noUnusedParameters": true,
     "pretty": true,
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "sourceMap": true,
-    "strict": true,
-    "useDefineForClassFields": true,
     "useUnknownInCatchVariables": true,
-    "verbatimModuleSyntax": true,
-    "module": "esnext",
-    "target": "esnext",
-    "types": [
-      "node"
-    ],
-    "lib": [
-      "esnext"
-    ]
+    "skipLibCheck": true
   },
   "include": [
     "./src/**/*.ts",
