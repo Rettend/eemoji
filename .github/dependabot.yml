@@ -9,6 +9,8 @@ updates:
     directory: / # Location of package manifests
     ignore:
       - dependency-name: '@antfu/eslint-config'
+    commit-message:
+      prefix: '📦 '
     schedule:
       interval: weekly
     groups:
