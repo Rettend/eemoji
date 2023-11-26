@@ -10,7 +10,7 @@ if (process.env.SKIP_POSTINSTALL) {
 
     schema.properties.emojis.default = emojis
 
-    fs.writeFileSync('./json/eemoji-config-schema.json', JSON.stringify(schema, null, 2))
+    fs.writeFileSync('./json/eemoji-config-schema.json', `${JSON.stringify(schema, null, 2)}\n`)
   }
 }
 else {
