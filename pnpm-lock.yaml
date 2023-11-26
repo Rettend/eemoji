@@ -17,7 +17,7 @@ dependencies:
 
 devDependencies:
   '@antfu/eslint-config':
-    specifier: ^0.39.8
+    specifier: 0.39.8
     version: 0.39.8(eslint@8.52.0)(typescript@5.2.2)
   '@types/node':
     specifier: ^20.8.9
