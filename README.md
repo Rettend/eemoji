@@ -1,5 +1,7 @@
 # eemoji
 
+![eemoji](https://img.shields.io/badge/😎%20eemoji-fccf1d?style=for-the-badge)
+
 This tiny CLI tool automatically adds an emoji to your commit messages based on conventional commit types.
 
 Also it's fully customizable: add your own emojis and trigger words, change the format of the commit message, etc.
