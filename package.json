@@ -48,12 +48,14 @@
     "preuninstall": "node ./bin/eemoji.mjs cleanup"
   },
   "dependencies": {
-    "citty": "^0.1.4",
+    "citty": "^0.1.5",
     "consola": "^3.2.3",
-    "cosmiconfig": "^8.3.6"
+    "cosmiconfig": "^8.3.6",
+    "lodash-es": "^4.17.21"
   },
   "devDependencies": {
     "@antfu/eslint-config": "0.39.8",
+    "@types/lodash-es": "^4.17.12",
     "@types/node": "^20.8.9",
     "@vitest/coverage-istanbul": "^0.34.6",
     "@vitest/ui": "^0.34.6",

@@ -1,11 +1,14 @@
 import * as path from 'node:path'
 import process from 'node:process'
+import { merge } from 'lodash-es'
 import { name } from '../package.json'
 import emojis from './emojis.json'
 
+type PipePropName<T> = T extends `${infer First}|${infer _}` ? First : T
+
 type StringOrOptionalProp<T> = {
   [K in keyof T as K extends 'breaking' ? never :
-    K extends `${infer First}|${infer _}` ? First : K]: T[K] | Record<string, string>
+    PipePropName<K>]: T[K] | Record<string, string>
 } | Record<string, string | Record<string, string>>
 
 type EmojiType = StringOrOptionalProp<typeof emojis> & { breaking?: string }
@@ -85,12 +88,5 @@ export default defineConfig({
 export function defineConfig(config: Partial<Config>): Config {
   const defaultConfig = new ConfigObject().defaultConfig
 
-  return {
-    ...defaultConfig,
-    ...config,
-    emojis: {
-      ...defaultConfig.emojis,
-      ...config.emojis,
-    },
-  }
+  return merge({}, defaultConfig, config)
 }
