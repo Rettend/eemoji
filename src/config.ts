@@ -3,13 +3,16 @@ import process from 'node:process'
 import { name } from '../package.json'
 import emojis from './emojis.json'
 
-type EmojiConfig = Partial<typeof emojis> & {
-  [key: string]: string | Record<string, string>
-}
+type StringOrOptionalProp<T> = {
+  [K in keyof T as K extends 'breaking' ? never :
+    K extends `${infer First}|${infer _}` ? First : K]: T[K] | Record<string, string>
+} | Record<string, string | Record<string, string>>
+
+type EmojiType = StringOrOptionalProp<typeof emojis> & { breaking?: string }
 
 export interface Config {
   format: string
-  emojis: EmojiConfig
+  emojis: EmojiType
 }
 
 export const configTypes = [
