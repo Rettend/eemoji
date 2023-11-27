@@ -47,7 +47,7 @@ export default defineCommand({
       }
 
       if (ctx.args.test) {
-        let initial = ''
+        let initial = 'feat: add new feature'
 
         if (fs.existsSync(ctx.args.commit_file))
           initial = unemojify(fs.readFileSync(ctx.args.commit_file, 'utf-8'), config) ?? ''
