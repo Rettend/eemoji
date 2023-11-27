@@ -47,9 +47,14 @@ export default defineCommand({
       }
 
       if (ctx.args.test) {
+        let initial = ''
+
+        if (fs.existsSync(ctx.args.commit_file))
+          initial = unemojify(fs.readFileSync(ctx.args.commit_file, 'utf-8'), config) ?? ''
+
         commitMessage = await consola.prompt('Commit message:', {
           placeholder: 'enter a commit message for testing...',
-          initial: unemojify(fs.readFileSync(ctx.args.commit_file, 'utf-8'), config),
+          initial,
         })
 
         if (commitMessage) {
