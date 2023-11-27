@@ -94,3 +94,20 @@ export function unemojify(text: string, config: Config): string {
 
   return text.replace(regex, '').trim()
 }
+
+export function createExampleCommitMessage(config: Config): string {
+  const type = Object.keys(config.emojis)[0]
+  let emoji = Object.values(config.emojis)[0]
+  const subject = 'add new feature'
+
+  if (typeof emoji === 'object')
+    emoji = Object.values(emoji)[0]
+
+  if (!type || !emoji)
+    return ''
+
+  return config.format
+    .replace('{emoji}', emoji)
+    .replace('{type}', type)
+    .replace('{subject}', subject)
+}
