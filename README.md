@@ -5,11 +5,11 @@
   [![eemoji](https://img.shields.io/badge/😎%20eemoji-fccf1d?style=for-the-badge)](https://github.com/Rettend/eemoji)
 </h1>
 
-This tiny CLI tool automatically adds emojis to your commit messages based on conventional commit types.
+This is a tiny CLI tool that automatically adds emojis to your commit messages based on conventional commit types.
 
-Also it's fully customizable: add your own emojis and trigger words, change the format of the commit message, etc.
-
-It runs with the `prepare-commit-msg` git hook (every time your make a commit) and modifies your commit messages.
+- 📦 Easy Install: just install it once and forget about it
+- 🛠️ Customizable: you can add your own emojis and trigger words, and change the format of the commit message as per your needs.
+- 🫧 Seamless: operates with the `prepare-commit-msg` git hook, modifying your commit messages every time you make a commit.
 
 > [!WARNING]
 > There is a [known issue](#️-known-issues) with GitHub Desktop on Windows.
@@ -90,13 +90,13 @@ npm i -g eemoji
 
 ## 📖 Usage
 
-After installing it, just create a commit and see an emoji appended to it.
+**After installing it, just create a commit and see an emoji appended to it.**
 
 Go to the [Config](#-config) section for [examples](#simple-demonstration) and to see how to customize it.
 
-👇 The cli tool also has some commands for removing `eemoji` from a repository, running it manually, etc. But they are not that important.
+The cli tool also has some commands for removing `eemoji` from a repository, running it manually, etc. But they are not that important. 👇
 
-<details open>
+<details>
 <summary><h3>Commands</h3></summary>
 
 Use `eemoji <command>` if you installed it globally, or `npx eemoji <command>` if you installed it locally.
