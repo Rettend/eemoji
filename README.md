@@ -1,10 +1,8 @@
-<h1 align="left">
+<h1 align="center">
   eemoji
-
-  <span align="center">
+  <br><br>
 
   [![eemoji](https://img.shields.io/badge/😎%20eemoji-fccf1d?style=for-the-badge)](https://github.com/Rettend/eemoji)
-  </span>
 </h1>
 
 This tiny CLI tool automatically adds emojis to your commit messages based on conventional commit types.
@@ -12,6 +10,9 @@ This tiny CLI tool automatically adds emojis to your commit messages based on co
 Also it's fully customizable: add your own emojis and trigger words, change the format of the commit message, etc.
 
 It runs with the `prepare-commit-msg` git hook (every time your make a commit) and modifies your commit messages.
+
+> [!WARNING]
+> There is a [known issue](#️-known-issues) with GitHub Desktop on Windows.
 
 ## 😎 Emojis
 
@@ -26,7 +27,7 @@ Hi, read the `README.md` first (starting with [Install](#-install)). This emoji 
 | `fix` | `typo` | ✏️ | fixed typo in code, docs, ui, etc. |
 | `fix` | `bug` | 🐛 | fixed a bug |
 | `chore` | `.` | 🗑️ | did some chores |
-| `chore` | `release` | 🔖 | new release commit (pairs well with [bumpp](https://github.com/antfu/bumpp) and [changelogithub](https://github.com/antfu/changelogithub)) |
+| `chore` | `release` | 🔖 | new release commit (pairs well with [bumpp](https://github.com/antfu/bumpp)) |
 | `chore` | `cleanup` | 🧹 | cleaned up code, removed logs and debug stuff, making things ready for production |
 | `chore` | `license` | 📜 | changed the license |
 | `chore` | `lint` | 🧼 | fixed linting errors |
@@ -93,9 +94,12 @@ After installing it, just create a commit and see an emoji appended to it.
 
 Go to the [Config](#-config) section for [examples](#simple-demonstration) and to see how to customize it.
 
-Use `eemoji <command>` if you installed it globally, or `npx eemoji <command>` if you installed it locally.
+👇 The cli tool also has some commands for removing `eemoji` from a repository, running it manually, etc. But they are not that important.
 
-### Commands
+<details open>
+<summary><h3>Commands</h3></summary>
+
+Use `eemoji <command>` if you installed it globally, or `npx eemoji <command>` if you installed it locally.
 
 Use the help command to see all available commands and flags.
 
@@ -133,7 +137,7 @@ eemoji cleanup
 
 Runs the `eemoji` on the current commit message manually.
 
-This is used by the git hook, but you can also test it manually (specify a test file or it will use the current commit message in `.git/COMMIT_EDITMSG`).
+This is used by the git hook, but also allows you to test `eemoji` manually (specify a test file or it will use the current commit message in `.git/COMMIT_EDITMSG`).
 
 ```bash
 eemoji run
@@ -147,6 +151,8 @@ eemoji run
 
 - `-d, --debug`: the debug level, `0` for none, `1` for some, `2` for all
 - `-t, --test`: test mode, input a commit message instead of a file
+
+</details>
 
 ## 🦾 Config
 
@@ -280,7 +286,7 @@ Same deal, but you overwrite the whole config.
 
 Use the `init` command and select the `json` config type to generate a config file.
 
-> [!WARNING]
+> [!IMPORTANT]
 > You must specify the `format` property
 
 You also get types thanks to the JSON schema.
@@ -301,9 +307,9 @@ You also get types thanks to the JSON schema.
 
 ## ⚠️ Known issues
 
-**`eemoji` WILL NOT work with GitHub Desktop on Windows.**
+**`eemoji` WILL NOT work with GitHub Desktop on Windows <u>unless you do this</u>.**
 
-There is an [open issue](https://github.com/desktop/desktop/issues/12562#issuecomment-1444580040) with GitHub Desktop.
+This sucks, but this is an [open issue](https://github.com/desktop/desktop/issues/12562#issuecomment-1444580040) with GitHub Desktop.
 
 Follow these steps:
 
@@ -311,11 +317,11 @@ Follow these steps:
 - Add `C:\Program Files\Git\bin` just below that
 - Restart GitHub Desktop
 
-If it continues to fail to work, try this as well and restart GitHub Desktop:
+If it continues to fail to work, try this as well and restart everything:
 
 - Run this command once: `git config stash.usebuiltin false`
 
-## 💛 Copy the Badge
+## 💛 Badge
 
 [![eemoji](https://img.shields.io/badge/😎%20eemoji-fccf1d?style=for-the-badge)](  https://github.com/Rettend/eemoji)
 
