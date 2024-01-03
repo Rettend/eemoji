@@ -84,7 +84,7 @@ npm i -D eemoji
 npm i -g eemoji
 ```
 
-> **Note**
+> [!NOTE]
 > For `eemoji` to work in a repository you still need to run the init command once, so that it can install the git hook there as well.
 
 ## 📖 Usage
@@ -280,7 +280,7 @@ Same deal, but you overwrite the whole config.
 
 Use the `init` command and select the `json` config type to generate a config file.
 
-> **Warning**
+> [!WARNING]
 > You must specify the `format` property
 
 You also get types thanks to the JSON schema.
