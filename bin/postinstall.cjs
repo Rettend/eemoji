@@ -17,7 +17,6 @@ else {
   exec('node ./bin/eemoji.mjs init -c none', (err, stdout) => {
     if (err)
       console.error(err)
-
     else
       console.log(stdout)
   })
