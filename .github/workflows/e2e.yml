@@ -30,15 +30,18 @@ jobs:
           cache: pnpm
 
       - name: Install eemoji
-        env:
-          SKIP_POSTINSTALL: true
-        run: pnpm i
+        run: pnpm i -g eemoji
+          
+      # - name: Install eemoji
+      #   env:
+      #     SKIP_POSTINSTALL: true
+      #   run: pnpm i
 
-      - name: Build eemoji
-        run: pnpm run build
+      # - name: Build eemoji
+      #   run: pnpm run build
 
-      - name: Setup eemoji
-        run: pnpm i
+      # - name: Setup eemoji
+      #   run: pnpm i
 
       - name: Switch to test branch
         run: git checkout -b test
