@@ -37,9 +37,9 @@ jobs:
         run: git checkout -b test
 
       - name: Set git user
-        run: /
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "GitHub Actions Bot"
+        run: |
+          git config --global user.email "eemoji-bot@users.noreply.github.com"
+          git config --global user.name "eemoji-bot"
 
       - name: Authenticate with GitHub
         run: 'git config --global http.https://github.com/.extraheader ''AUTHORIZATION: bearer ${{ secrets.BOT_PAT }}'''
