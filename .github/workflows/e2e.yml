@@ -31,13 +31,21 @@ jobs:
           cache: pnpm
 
       - name: Install eemoji package
-        run: npm install
+        run: pnpm install
 
       - name: Switch to test branch
         run: git checkout -b test
 
+      - name: Set git user
+        run: /
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "GitHub Actions Bot"
+
+      - name: Authenticate with GitHub
+        run: 'git config --global http.https://github.com/.extraheader ''AUTHORIZATION: bearer ${{ secrets.BOT_PAT }}'''
+
       - name: Make a commit with a keyword
-        run: git commit --allow-empty -m "test\\u003A eemoji"
+        run: 'git commit --allow-empty -m ''test: eemoji'''
 
       - name: Check the commit message for emoji
         run: cat .git/COMMIT_MSG | grep -q "👍"
