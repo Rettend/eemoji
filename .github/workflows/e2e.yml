@@ -12,7 +12,6 @@ on:
 jobs:
   test:
     runs-on: ${{ matrix.os }}
-    if: github.actor != 'eemoji-bot'
     strategy:
       matrix:
         os: [windows-latest, ubuntu-latest, macos-latest]
@@ -20,8 +19,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.BOT_PAT }}
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2
@@ -53,6 +50,3 @@ jobs:
 
       - name: Check the commit message for emoji
         run: git log -1 --pretty=%B | grep -q "👍"
-
-      - name: Push the commit
-        run: git push
