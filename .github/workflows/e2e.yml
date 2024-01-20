@@ -43,12 +43,12 @@ jobs:
       - name: Setup eemoji
         run: node ./bin/eemoji.mjs init -c none
 
-      - name: Find .git/COMMIT_EDITMSG and print where it is
-        run: find . -name COMMIT_EDITMSG
+      - name: Ls whats in .git
+        run: ls -la .git
 
-      - name: Find eemoji.mjs and print where it is
-        run: find . -name eemoji.mjs
-      
+      - name: print npm path
+        run: npm root
+
       - name: Switch to test branch
         run: git checkout -b test
 
