@@ -1,0 +1,43 @@
+name: E2E Test
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        # os: [windows-latest, ubuntu-latest, macos-latest]
+        os: [ubuntu-latest]
+        node-version: [16.x]
+    steps:
+      - name: Checkout eemoji package
+        uses: actions/checkout@v3
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+
+      - name: Set node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: pnpm
+
+      - name: Install eemoji package
+        run: npm install
+
+      - name: Switch to test branch
+        run: git switch test
+        
+      - name: Make a commit with a keyword
+        run: git commit --allow-empty -m "test\\u003A eemoji"
+
+      - name: Check the commit message for emoji
+        run: cat .git/COMMIT_MSG | grep -q "👍"

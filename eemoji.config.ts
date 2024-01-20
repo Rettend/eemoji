@@ -12,6 +12,9 @@ export default defineConfig({
       '.': '➖',
       'emoji': '😭,😵,😴,☹️,😠,😤,😨,😩,😔,😢',
     },
+    test: {
+      eemoji: '👍',
+    },
   },
 } satisfies Partial<Config>,
 )

@@ -8,7 +8,7 @@
 - [ ] 2 more options: (any combination of these should work)
   - [ ] `strict (boolean) [false]` - do not allow any commits without emojis
   - [ ] `conventional (boolean) [true]` - only allow conventional commits, this package should work without conventional commits as well
-- [ ] new option: `mode (overwrite|append) [append]` - overwrite or append the config (for both json and ts)
+- [ ] new option: `mode (overwrite|append) [append]` - overwrite or append the config (for both json and ts) (idea: if emoji prop is specified, overwrite, else use default + you can import the default emojis to append them)
 - [ ] add `-v` alias for `--version`
 - [ ] make the consola start and success logs sane in the cleanup command
 - [ ] rewrite the bin files in typescript and also build them
