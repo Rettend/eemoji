@@ -14,7 +14,7 @@ else if (!process.env.SKIP_POSTINSTALL) {
   exec('node ./bin/eemoji.mjs init -c none', (err, stdout) => {
     if (err)
       console.error(err)
-    elsenode ./bin/eemoji.mjs init -c none
+    else
       console.log(stdout)
   })
 }
