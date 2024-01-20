@@ -2,7 +2,8 @@
 
 ## v2
 
-- [ ] Add e2e tests with github actions (for all operating systems)
+- [x] Add e2e tests with github actions (for all operating systems)
+- [ ] Better way to get cwd
 - [ ] Upgrade to unbuild `3.0.0` (currently errors), fix `masquerading as CJS` error [(see here)](https://arethetypeswrong.github.io/?p=eemoji)
 - [ ] Upgrade antfu/eslint-config to `2.0.0` and make it work
 - [ ] 2 more options: (any combination of these should work)

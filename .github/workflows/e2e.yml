@@ -12,10 +12,10 @@ on:
 jobs:
   test:
     runs-on: ${{ matrix.os }}
+    if: github.actor != 'eemoji-bot'
     strategy:
       matrix:
-        # os: [windows-latest, ubuntu-latest, macos-latest]
-        os: [ubuntu-latest]
+        os: [windows-latest, ubuntu-latest, macos-latest]
         node-version: [18.x]
     steps:
       - uses: actions/checkout@v3
@@ -29,9 +29,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: pnpm
 
-      # - name: Install eemoji
-      #   run: pnpm i -g eemoji
-
       - name: Install eemoji
         env:
           SKIP_POSTINSTALL: true
@@ -42,15 +39,6 @@ jobs:
 
       - name: Setup eemoji
         run: node ./bin/eemoji.mjs init -c none
-
-      - name: Ls whats in .git
-        run: ls -la .git
-
-      - name: print npm path
-        run: npm root
-
-      - name: Switch to test branch
-        run: git checkout -b test
 
       - name: Set git bot
         run: |
@@ -64,6 +52,7 @@ jobs:
         run: 'git commit --allow-empty -m ''test: eemoji'''
 
       - name: Check the commit message for emoji
-        run: |
-          git log -1
-          git log -1 --pretty=%B | grep -q "👍"
+        run: git log -1 --pretty=%B | grep -q "👍"
+
+      - name: Push the commit
+        run: git push
