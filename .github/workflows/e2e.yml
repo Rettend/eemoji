@@ -43,10 +43,11 @@ jobs:
       - name: Setup eemoji
         run: node ./bin/eemoji.mjs init -c none
 
-      - name: Print npm roots
-        run: |
-          echo "NPM root: $(npm root)"
-          echo "NPM global root: $(npm root -g)"
+      - name: Print .git/COMMIT_EDITMSG
+        run: cat .git/COMMIT_EDITMSG
+      
+      - name: Try eemoji
+        run: pnpm run dev run -d 4
 
       - name: Switch to test branch
         run: git checkout -b test
@@ -61,12 +62,6 @@ jobs:
 
       - name: Make a commit with a keyword
         run: 'git commit --allow-empty -m ''test: eemoji'''
-      
-      - name: Try eemoji
-        run: pnpm run dev run -d 4
-
-      - name: Print .git/COMMIT_EDITMSG
-        run: cat .git/COMMIT_EDITMSG
 
       - name: Check the commit message for emoji
         run: |
