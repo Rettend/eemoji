@@ -29,19 +29,28 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: pnpm
 
-      - name: Install eemoji
-        run: pnpm i -g eemoji
-          
       # - name: Install eemoji
-      #   env:
-      #     SKIP_POSTINSTALL: true
-      #   run: pnpm i
+      #   run: pnpm i -g eemoji
+          
+      - name: Install eemoji
+        env:
+          SKIP_POSTINSTALL: true
+        run: pnpm i
 
-      # - name: Build eemoji
-      #   run: pnpm run build
+      - name: Build eemoji
+        run: pnpm run build
 
-      # - name: Setup eemoji
-      #   run: pnpm i
+      - name: Setup eemoji
+        run: pnpm i
+
+      - name: Link eemoji
+        run: pnpm link --global
+
+      - name: Print eemoji version
+        run: eemoji --version
+
+      - name: Print ls
+        run: ls -la
 
       - name: Switch to test branch
         run: git checkout -b test
