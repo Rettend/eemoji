@@ -16,7 +16,7 @@ jobs:
       matrix:
         # os: [windows-latest, ubuntu-latest, macos-latest]
         os: [ubuntu-latest]
-        node-version: [16.x]
+        node-version: [18.x]
     steps:
       - name: Checkout eemoji package
         uses: actions/checkout@v3
@@ -34,7 +34,7 @@ jobs:
         run: npm install
 
       - name: Switch to test branch
-        run: git switch test
+        run: git checkout -b test
 
       - name: Make a commit with a keyword
         run: git commit --allow-empty -m "test\\u003A eemoji"
