@@ -33,6 +33,9 @@ jobs:
       - name: Install eemoji package
         run: pnpm install
 
+      - name: Build eemoji package
+        run: pnpm run build
+
       - name: Switch to test branch
         run: git checkout -b test
 
