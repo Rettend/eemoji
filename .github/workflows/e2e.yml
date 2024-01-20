@@ -35,7 +35,7 @@ jobs:
 
       - name: Switch to test branch
         run: git switch test
-        
+
       - name: Make a commit with a keyword
         run: git commit --allow-empty -m "test\\u003A eemoji"
 
