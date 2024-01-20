@@ -18,7 +18,10 @@ jobs:
         os: [windows-latest, ubuntu-latest, macos-latest]
         node-version: [18.x]
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.BOT_PAT }}
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2
@@ -44,9 +47,6 @@ jobs:
         run: |
           git config --global user.email "eemoji-bot@users.noreply.github.com"
           git config --global user.name "eemoji-bot"
-
-      - name: Authenticate with GitHub
-        run: 'git config --global http.https://github.com/.extraheader ''AUTHORIZATION: bearer ${{ secrets.BOT_PAT }}'''
 
       - name: Make a commit with a keyword
         run: 'git commit --allow-empty -m ''test: eemoji'''
