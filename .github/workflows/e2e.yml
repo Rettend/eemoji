@@ -31,7 +31,7 @@ jobs:
 
       # - name: Install eemoji
       #   run: pnpm i -g eemoji
-          
+
       - name: Install eemoji
         env:
           SKIP_POSTINSTALL: true
@@ -41,16 +41,10 @@ jobs:
         run: pnpm run build
 
       - name: Setup eemoji
-        run: pnpm i
-
-      - name: Link eemoji
-        run: pnpm link --global
-
-      - name: Print eemoji version
-        run: eemoji --version
+        run: node ./bin/eemoji.mjs init -c none
 
       - name: Print ls
-        run: ls -la
+        run: ls -la .git/hooks
 
       - name: Switch to test branch
         run: git checkout -b test
@@ -67,4 +61,6 @@ jobs:
         run: 'git commit --allow-empty -m ''test: eemoji'''
 
       - name: Check the commit message for emoji
-        run: git log -1 --pretty=%B | grep -q "👍"
+        run: |
+          git log -1
+          git log -1 --pretty=%B | grep -q "👍"
