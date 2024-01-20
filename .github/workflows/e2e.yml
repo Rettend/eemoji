@@ -18,8 +18,7 @@ jobs:
         os: [ubuntu-latest]
         node-version: [18.x]
     steps:
-      - name: Checkout eemoji package
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2
@@ -30,16 +29,21 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: pnpm
 
-      - name: Install eemoji package
-        run: pnpm install
+      - name: Install eemoji
+        env:
+          SKIP_POSTINSTALL: true
+        run: pnpm i
 
-      - name: Build eemoji package
+      - name: Build eemoji
         run: pnpm run build
+
+      - name: Setup eemoji
+        run: pnpm i
 
       - name: Switch to test branch
         run: git checkout -b test
 
-      - name: Set git user
+      - name: Set git bot
         run: |
           git config --global user.email "eemoji-bot@users.noreply.github.com"
           git config --global user.name "eemoji-bot"
@@ -51,4 +55,4 @@ jobs:
         run: 'git commit --allow-empty -m ''test: eemoji'''
 
       - name: Check the commit message for emoji
-        run: cat .git/COMMIT_MSG | grep -q "👍"
+        run: git log -1 --pretty=%B | grep -q "👍"
