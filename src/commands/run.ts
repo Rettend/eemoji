@@ -17,7 +17,7 @@ export default defineCommand({
   args: {
     commit_file: {
       type: 'positional',
-      description: `Commit message file path (default: ${C.gitCommitFile})`,
+      description: 'Commit message file path',
       default: C.gitCommitFile,
     },
     DEBUG: {

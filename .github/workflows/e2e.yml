@@ -43,8 +43,13 @@ jobs:
       - name: Setup eemoji
         run: node ./bin/eemoji.mjs init -c none
 
-      - name: Print ls
-        run: ls -la .git/hooks
+      - name: Try eemoji
+        run: pnpm run dev run -d 4
+
+      - name: Print npm roots
+        run: |
+          echo "NPM root: $(npm root)"
+          echo "NPM global root: $(npm root -g)"
 
       - name: Switch to test branch
         run: git checkout -b test
