@@ -55,7 +55,7 @@ jobs:
       - name: Install
         env:
           SKIP_POSTINSTALL: true
-        run: nci --ignore-scripts
+        run: nci
 
       - name: Typecheck
         run: nr typecheck
