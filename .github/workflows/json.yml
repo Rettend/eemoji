@@ -2,9 +2,12 @@
 name: Deploy JSON Schema to Pages
 
 on:
-  # Runs on pushes targeting the default branch
+  # Runs on pushes targeting the default branch, when certain files are modified
   push:
     branches: [main]
+    paths:
+      - src/config.ts
+      - src/emojis.json
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
