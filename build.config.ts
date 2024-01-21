@@ -8,6 +8,9 @@ export default defineBuildConfig({
   declaration: true,
   rollup: {
     emitCJS: true,
+    esbuild: {
+      minify: true,
+    },
   },
   externals: [
     'consola',

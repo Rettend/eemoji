@@ -1,5 +1,5 @@
 import { consola } from 'consola'
-import { type Config } from './../config'
+import type { Config } from './../config'
 
 /**
  * Formats a commit message with an emoji based on the type.

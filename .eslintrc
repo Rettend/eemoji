@@ -1,9 +1,0 @@
-{
-  "extends": [
-    "@antfu"
-  ],
-  "rules": {
-    "no-console": "warn",
-    "yml/no-empty-mapping-value": "off"
-  }
-}

@@ -1,6 +1,4 @@
-import { defineConfig } from './dist/index.mjs'
-
-declare type Config = import('./dist/index.d.ts').Config
+import { type Config, defineConfig } from 'eemoji'
 
 export default defineConfig({
   emojis: {
