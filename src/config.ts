@@ -1,8 +1,14 @@
 import * as path from 'node:path'
 import process from 'node:process'
+import { fileURLToPath } from 'node:url'
+import { dirname } from 'node:path'
 import { merge } from 'lodash-es'
 import { name } from '../package.json'
 import emojis from './emojis.json'
+
+globalThis.__eemoji_pkg__ = globalThis.__eemoji_pkg__ || {
+  entryDir: dirname(fileURLToPath(import.meta.url)),
+}
 
 type PipePropName<T> = T extends `${infer First}|${infer _}` ? First : T
 
