@@ -89,9 +89,10 @@ export default defineConfig({
   vscodeSettingsFile = path.join(this.cwd, '.vscode/settings.json')
   gitCommitFile = path.join(this.cwd, '.git/COMMIT_EDITMSG')
   hooksDir = path.join(this.cwd, '.git/hooks')
-  hookFile = path.join(this.cwd, this.hooksDir, 'prepare-commit-msg')
+  hookFile = path.join(this.cwd, '.git/hooks/prepare-commit-msg')
   entryFile = path.join(globalThis.__eemoji_pkg__.entryDir, 'hook.sh')
 }
+
 
 export function defineConfig(config: Partial<Config>): Config {
   const defaultConfig = new ConfigObject().defaultConfig
