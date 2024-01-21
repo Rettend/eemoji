@@ -1,16 +1,11 @@
 import * as fs from 'node:fs'
 import * as path from 'node:path'
 import process from 'node:process'
-import { fileURLToPath } from 'node:url'
-import { dirname } from 'node:path'
 import { defineCommand } from 'citty'
 import { consola } from 'consola'
 import { name } from '../../package.json'
 import type { ConfigType, JsFiles, JsonFiles } from './../config'
 import { ConfigObject, configTypes } from './../config'
-
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
 
 const C = new ConfigObject()
 
@@ -77,16 +72,13 @@ function createConfigFile(filename: JsonFiles | JsFiles, content: string): void 
 }
 
 function checkGitHook() {
-  // TODO: why ../..?
-  const sourceHookPath = path.join(__dirname, '..', '..', 'bin', 'hook.sh')
-
   if (!fs.existsSync(C.hooksDir)) {
     fs.mkdirSync(C.hooksDir)
     consola.success('Created: .git/hooks')
   }
 
   try {
-    fs.copyFileSync(sourceHookPath, C.hookFile)
+    fs.copyFileSync(C.entryFile, C.hookFile)
     fs.chmodSync(C.hookFile, '755')
   }
   catch (err: any) {
