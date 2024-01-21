@@ -18,6 +18,6 @@ export const main = defineCommand({
   subCommands: commands,
   run({ args }) {
     if (args.version)
-      consola.log(`😎 ${name} v${version}`)
+      consola.log(`😎 ${name} \`v${version}\``)
   },
 })

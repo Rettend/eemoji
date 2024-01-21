@@ -96,16 +96,12 @@ Go to the [Config](#-config) section for [examples](#simple-demonstration) and t
 
 The cli tool also has some commands for removing `eemoji` from a repository, running it manually, etc. But they are not that important. 👇
 
-<details>
-<summary><h3>Commands</h3></summary>
+### Commands
 
 Use `eemoji <command>` if you installed it globally, or `npx eemoji <command>` if you installed it locally.
 
-Use the help command to see all available commands and flags.
-
-`eemoji -h` or `eemoji --help`
-
-In addition, check the version with `eemoji --version`.
+- `-h, --help`: show help for a command
+- `-v, --version`: show version
 
 #### 🚩 Init
 
@@ -151,8 +147,6 @@ eemoji run
 
 - `-d, --debug`: the debug level, `0` for none, `1` for some, `2` for all
 - `-t, --test`: test mode, input a commit message instead of a file
-
-</details>
 
 ## 🦾 Config
 
