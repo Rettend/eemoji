@@ -46,7 +46,8 @@
     "typecheck": "tsc --noEmit",
     "release": "bumpp && unbuild && pnpm publish",
     "postinstall": "node ./bin/postinstall.cjs",
-    "preuninstall": "node ./bin/eemoji.mjs cleanup"
+    "preuninstall": "node ./bin/eemoji.mjs cleanup",
+    "prepare": "simple-git-hooks"
   },
   "dependencies": {
     "citty": "^0.1.4",

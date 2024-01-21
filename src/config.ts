@@ -93,7 +93,6 @@ export default defineConfig({
   entryFile = path.join(globalThis.__eemoji_pkg__.entryDir, 'hook.sh')
 }
 
-
 export function defineConfig(config: Partial<Config>): Config {
   const defaultConfig = new ConfigObject().defaultConfig
 
