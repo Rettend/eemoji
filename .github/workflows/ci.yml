@@ -55,8 +55,7 @@ jobs:
       - name: Install
         env:
           SKIP_POSTINSTALL: true
-          UPLOAD_SCHEMA: false
-        run: nci
+        run: nci --ignore-scripts
 
       - name: Typecheck
         run: nr typecheck
@@ -82,7 +81,7 @@ jobs:
       - name: Install
         env:
           SKIP_POSTINSTALL: true
-        run: nci --ignore-scripts
+        run: nci
 
       - name: Build
         run: nr build
