@@ -16,5 +16,5 @@
 - [x] make the consola start and success logs sane in the cleanup command
 - [x] investigate speed, prepare script for init
 - [x] move bin scripts to `scripts` folder and also build them from typescript
-- [ ] Generate the readme emoji table from `emojis.json` (jsonc for description)
+- [x] Generate the readme emoji table from `emojis.jsonc` (jsonc for description)
 - [ ] try astro and create a small website explaining which emoji to use and when, + stuff

@@ -21,46 +21,51 @@ Hi, read the `README.md` first (starting with [Install](#-install)). This emoji 
 <details open>
 <summary><b>Close/open gigantic table</b></summary>
 
-| Type | Subtype | Emoji | Description |
-| ---- | ------- | ----- | ----------- |
-| `fix` | `.` | 🔧 | general fix |
-| `fix` | `typo` | ✏️ | fixed typo in code, docs, ui, etc. |
-| `fix` | `bug` | 🐛 | fixed a bug |
-| `chore` | `.` | 🗑️ | did some chores |
-| `chore` | `release` | 🔖 | new release commit (pairs well with [bumpp](https://github.com/antfu/bumpp)) |
-| `chore` | `cleanup` | 🧹 | cleaned up code, removed logs and debug stuff, making things ready for production |
-| `chore` | `license` | 📜 | changed the license |
-| `chore` | `lint` | 🧼 | fixed linting errors |
-| `chore` | `deps` | 📦 | updated dependencies |
-| `chore` | `readme` | 📕,📗,📘,📙 | update the README |
-| `release` | | 🔖 | |
-| `cleanup` | | 🧹 | |
-| `lint` | | 🧼 | |
-| `deps` | `.` | 📦 | added/removed/changed dependencies |
-| `deps` | `up` | ⬆️ | updated dependencies |
-| `deps` | `down` | ⬇️ | downgraded dependencies |
-| `build` | `.` | 🦺 | work regarding build processes |
-| `build` | `deps` | 📦 | dependabot PRs |
-| `docs` | `.` | 📝 | documented something |
-| `docs` | `readme` | 📕,📗,📘,📙 | |
-| `feat` | `.` | ✨ | introduced a new feature |
-| `feat` | `enhance` | 💎 | made something a little better (but still include in release notes) |
-| `enhance` | | 💎 | made something a little better (omit from release notes) |
-| `test` | | 🧪 | worked on tests |
-| `refactor` | | ♻️ | refactored code, achieved the same with less |
-| `init` &#124; `initial` | | 🎉 | started a new project! |
-| `perf` | | ⚡ | improved performance, achieve the same faster |
-| `config` | | ⚙️ | changed configuration files |
-| `style` | | 🎨 | design changes, style changes |
-| `ui` | | 🪟 | worked on UI, UX or layout |
-| `text` | | 💬 | changed string literals, text content |
-| `breaking` | | 💥 | *special type:* will be used if the commit contains an exclamation mark (`!`), indicates breaking changes |
-| `revert` | | ⏪ | revert a commit |
-| `ci` | | 🦾 | changed workflow files, CI stuff |
-| `i18n` | | 🌐 | translated something |
-| `wip` | | 🚧 | wildcard type, works for anything |
-| `add` | | ➕ | |
-| `remove` | | ➖ | |
+<!-- emoji table start -->
+| Type           | Subtype   | Emoji       | Description                                                                                                                        |
+| -------------- | --------- | ----------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `fix`          | `.`       | 🔧          |  general fix                                                                                                                       |
+| `fix`          | `typo`    | ✏️          |  fixed typo in code, docs, ui, etc.                                                                                                |
+| `fix`          | `bug`     | 🐛          |  fixed a bug                                                                                                                       |
+| `chore`        | `.`       | 🗑️         |  did some chores                                                                                                                   |
+| `chore`        | `release` | 🔖          |  new release commit (pairs well with [bumpp](https://github.com/antfu/bumpp))                                                      |
+| `chore`        | `cleanup` | 🧹          |  cleaned up code, removed logs and debug stuff, made everyting ready for production                                                |
+| `chore`        | `license` | 📜          |  changed the license                                                                                                               |
+| `chore`        | `lint`    | 🧼          |  fixed linting errors                                                                                                              |
+| `chore`        | `deps`    | 📦          |  changed dependencies                                                                                                              |
+| `chore`        | `readme`  | 📕,📗,📘,📙 |  update the README                                                                                                                 |
+| `release`      |           | 🔖          |                                                                                                                                    |
+| `cleanup`      |           | 🧹          |                                                                                                                                    |
+| `lint`         |           | 🧼          |                                                                                                                                    |
+| `deps`         | `.`       | 📦          |  added/removed/changed dependencies                                                                                                |
+| `deps`         | `up`      | ⬆️          |  updated dependencies                                                                                                              |
+| `deps`         | `down`    | ⬇️          |  downgraded dependencies                                                                                                           |
+| `build`        | `.`       | 🦺          |  work regarding build processes                                                                                                    |
+| `build`        | `deps`    | 📦          |  dependabot PRs (see the prefix in the [dependabot.yml](./.github/dependabot.yml) file on how to add an emoji to our friend's PRs) |
+| `docs`         | `.`       | 📝          |  documented something                                                                                                              |
+| `docs`         | `readme`  | 📕,📗,📘,📙 |                                                                                                                                    |
+| `feat`         | `.`       | ✨           |  introduced a new feature                                                                                                          |
+| `feat`         | `enhance` | 💎          |  made something a little better (but still include in release notes)                                                               |
+| `enhance`      |           | 💎          |  made something a little better (omit from release notes)                                                                          |
+| `test`         |           | 🧪          |  worked on tests                                                                                                                   |
+| `refactor`     |           | ♻️          |  refactored code, achieved the same with less                                                                                      |
+| `init|initial` |           | 🎉          |  started a new project!                                                                                                            |
+| `up`           |           | ⬆️          |                                                                                                                                    |
+| `down`         |           | ⬇️          |                                                                                                                                    |
+| `perf`         |           | ⚡           |  improved performance, achieved the same faster                                                                                    |
+| `config`       |           | ⚙️          |  changed configuration files                                                                                                       |
+| `security`     |           | 🔒          |                                                                                                                                    |
+| `style`        |           | 🎨          |  design changes, style changes                                                                                                     |
+| `ui`           |           | 🪟          |  worked on UI, UX or layout                                                                                                        |
+| `text`         |           | 💬          |  changed string literals, text content                                                                                             |
+| `breaking`     |           | 💥          |  *special type:* will be used if the commit contains an exclamation mark (`!`), indicates breaking changes                         |
+| `revert`       |           | ⏪           |  revert a commit                                                                                                                   |
+| `ci`           |           | 🦾          |  changed workflow files, CI stuff                                                                                                  |
+| `i18n`         |           | 🌐          |  translated something                                                                                                              |
+| `wip`          |           | 🚧          |  wildcard type, works for anything                                                                                                 |
+| `add`          |           | ➕           |                                                                                                                                    |
+| `remove`       |           | ➖           |                                                                                                                                    |
+<!-- emoji table end -->
 
 </details>
 
@@ -161,7 +166,7 @@ eemoji run
 
 ## 🦾 Config
 
-The default configuration is here: [emojis.json](./src/emojis.json) and the [Emojis](#-emojis) section.
+The default configuration is here: [emojis.jsonc](./src/emojis.jsonc) and the [Emojis](#-emojis) section.
 
 This is used if no config file is found in the project.
 
@@ -329,9 +334,52 @@ If it continues to fail to work, try this as well and restart everything:
 
 - Run this command once: `git config stash.usebuiltin false`
 
+## 🤝 Contributing
+
+### Adding a new emoji
+
+To add a new emoji to the default config or modify it, please open an issue first.
+
+Then, if it's okay:
+
+- modify the [emojis.jsonc](./src/emojis.jsonc) file, add the emoji and a description
+- The Action will take care of the rest (copying it to the json, updating the readme emoji table and the json schema)
+- open a PR
+
+### Creating a new emoji preset
+
+SOON™️
+
+### Development
+
+> [!TIP]
+> Install pnpm and [ni](https://github.com/antfu/ni).
+>
+> ```bash
+> npm i -g pnpm @antfu/ni
+> ```
+
+```bash
+ni
+```
+
+Use the `stub` script to run have the latest changes build:
+
+```bash
+nr stub
+```
+
+Run commands with the `dev` script:
+
+```bash
+nr dev <command>
+```
+
+Also check the [TODO](./TODO.md) file and open an issue first if you want to work on something.
+
 ## 💛 Badge
 
-[![eemoji](https://img.shields.io/badge/😎%20eemoji-fccf1d?style=for-the-badge)](  https://github.com/Rettend/eemoji)
+[![eemoji](https://img.shields.io/badge/😎%20eemoji-fccf1d?style=for-the-badge)](https://github.com/Rettend/eemoji)
 
 ```md
 [![eemoji](https://img.shields.io/badge/😎%20eemoji-fccf1d?style=for-the-badge)](

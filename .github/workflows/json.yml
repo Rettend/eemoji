@@ -7,7 +7,7 @@ on:
     branches: [main]
     paths:
       - src/config.ts
-      - src/emojis.json
+      - src/emojis.jsonc
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -33,6 +33,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.BOT_PAT }}
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2
@@ -46,8 +48,17 @@ jobs:
       - name: Install
         run: pnpm i --ignore-scripts
 
+      - name: Build eemoji
+        run: pnpm run build
+
+      - name: Setup eemoji
+        run: pnpm run postinstall
+
       - name: Generate Schema
-        run: pnpm run schema
+        run: pnpm run gen:schema
+
+      - name: Generate Markdown table
+        run: pnpm run gen:table
 
       - name: Setup Pages
         uses: actions/configure-pages@v3
@@ -57,6 +68,14 @@ jobs:
         with:
           # only upload the eemoji-config-schema.json file
           path: json
+
+      - name: Push changes
+        run: |
+          git config --local user.email "eemoji-bot@users.noreply.github.com"
+          git config --local user.name "eemoji-bot"
+          git add .
+          git commit -m "Update JSON schema" -a
+          git push
 
       - name: Deploy to GitHub Pages
         id: deployment
