@@ -73,6 +73,17 @@ There are two different ways to install `eemoji`:
 
 Thanks to the `postinstall` script, after installing `eemoji` locally/globally, it will automatically create the git hook for the current repo. This means it will just work, but it's especially useful when other users are going to contribute to your repository.
 
+> [!TIP]
+> If you use `yarn` or `pnpm`, which do not run `postinstall` scripts by default, you need to run `eemoji init` manually.
+> Besides that, you can create a `prepare` script in your `package.json`, so that it will be run automatically for others who contribute to your repository:
+>
+> ```json
+> {
+>   "scripts": {
+>     "prepare": "eemoji init -c none"
+>   }
+> }
+
 ### Local
 
 ```bash
