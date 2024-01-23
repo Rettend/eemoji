@@ -37,6 +37,7 @@ export function eemojify(text: string, config: Config, DEBUG?: number): string {
     throw new Error('Invalid commit message.')
 
   let emoji = getEmoji(type, text, config, DEBUG)
+  consola.log('emoji')
 
   if (DEBUG)
     consola.log(`emoji: "${emoji}"`)
@@ -57,7 +58,8 @@ function getEmoji(type: string, text: string, config: Config, DEBUG?: number): s
   if (text.includes('!') && config.emojis.breaking)
     return config.emojis.breaking
 
-  const emojiKey = Object.keys(config.emojis).find(key => key.split('|').includes(type.toLowerCase().replace(/\(.*\)/, '').trim()))
+  type = type.toLowerCase().replace(/\(.*\)/, '').trim()
+  const emojiKey = Object.keys(config.emojis).find(key => key.split('|').includes(type))
 
   if (!emojiKey)
     return undefined
@@ -69,9 +71,10 @@ function getEmoji(type: string, text: string, config: Config, DEBUG?: number): s
       consola.log(`nested emoji: ${JSON.stringify(emoji)}`)
 
     const entries = Object.entries(emoji).filter(([key]) => key !== '.')
+    text = text.toLowerCase()
 
     for (const [key, value] of entries) {
-      if (key.split('|').some(k => text.toLowerCase().includes(k.toLowerCase())))
+      if (key.split('|').some(k => text.includes(k.toLowerCase())))
         return value
     }
 

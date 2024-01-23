@@ -22,7 +22,7 @@ export default defineCommand({
     },
     DEBUG: {
       type: 'string',
-      description: 'Debug level (default: 0)',
+      description: 'Debug level (0-2)',
       alias: 'd',
       default: '0',
     },
@@ -67,7 +67,6 @@ export default defineCommand({
       }
       else {
         commitMessage = fs.readFileSync(ctx.args.commit_file, 'utf-8')
-
         commitMessage = commitMessage.split('\n')[0] ?? ''
 
         const newCommitMessage = eemojify(commitMessage, config, DEBUG)
