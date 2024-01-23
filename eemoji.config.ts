@@ -14,6 +14,9 @@ export default defineConfig({
       '.': '🧪',
       'eemoji': '👍',
     },
+    chore: {
+      update: '👍',
+    },
   },
 } satisfies Partial<Config>,
 )
