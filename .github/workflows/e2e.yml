@@ -11,6 +11,7 @@ on:
 
 jobs:
   test:
+    if: github.actor != 'eemoji-bot'
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:

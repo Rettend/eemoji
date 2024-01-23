@@ -11,6 +11,7 @@ on:
 
 jobs:
   lint:
+    if: github.actor != 'eemoji-bot'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -31,6 +32,7 @@ jobs:
         run: pnpm run lint
 
   typecheck:
+    if: github.actor != 'eemoji-bot'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -51,8 +53,8 @@ jobs:
         run: pnpm run typecheck
 
   test:
+    if: github.actor != 'eemoji-bot'
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
 
@@ -67,9 +69,6 @@ jobs:
 
       - name: Install
         run: pnpm i --ignore-scripts
-
-      # - name: Build
-      #   run: pnpm run build
 
       - name: Test
         run: pnpm run test
