@@ -44,7 +44,7 @@ jobs:
           cache: pnpm
 
       - name: Install
-        run: pnpm i
+        run: pnpm i --ignore-scripts
 
       - name: Generate Schema
         run: pnpm run schema
