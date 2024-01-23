@@ -21,7 +21,6 @@ export default defineCommand({
     },
   },
   async run(ctx) {
-    console.time('init')
     await checkGitHook(!ctx.args.config) // if config is not specified, perform a clean init
     const configType = (ctx.args.config ? ctx.args.config : 'none') as ConfigType
 
@@ -65,7 +64,6 @@ export default defineCommand({
     }
 
     consola.success('Initialized eemoji!')
-    console.timeEnd('init')
   },
 })
 

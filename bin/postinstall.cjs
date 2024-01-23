@@ -15,6 +15,7 @@ else if (!process.env.SKIP_POSTINSTALL) {
     if (err)
       console.error(err)
     else
+      // eslint-disable-next-line no-console
       console.log(stdout)
   })
 }
