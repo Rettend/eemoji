@@ -27,8 +27,7 @@
   "types": "dist/index.d.ts",
   "bin": {
     "eemoji": "./bin/eemoji.mjs",
-    "eemoji-hook": "./bin/hook.sh",
-    "eemoji-postinstall": "./bin/postinstall.cjs"
+    "eemoji-hook": "./bin/hook.sh"
   },
   "files": [
     "bin",
