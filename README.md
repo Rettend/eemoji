@@ -62,6 +62,7 @@ Hi, read the `README.md` first (starting with [Install](#-install)). This emoji 
 | `text`         |            | 💬          |  changed string literals, text content                                                                                             |
 | `revert`       |            | ⏪           |  revert a commit                                                                                                                   |
 | `i18n`         |            | 🌐          |  translated something                                                                                                              |
+| `security`     |            | 🔒          |                                                                                                                                    |
 | `wip`          |            | 🚧          |  wildcard type, works for anything                                                                                                 |
 | `add`          |            | ➕           |                                                                                                                                    |
 | `remove`       |            | ➖           |                                                                                                                                    |
