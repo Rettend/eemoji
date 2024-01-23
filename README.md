@@ -21,6 +21,7 @@ Hi, read the `README.md` first (starting with [Install](#-install)). This emoji 
 <details open>
 <summary><b>Close/open gigantic table</b></summary>
 
+
 | Type | Subtype | Emoji | Description |
 | ---- | ------- | ----- | ----------- |
 | `fix` | `.` | 🔧 | general fix |
