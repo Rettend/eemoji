@@ -17,5 +17,7 @@ export default defineBuildConfig({
     'citty',
     'cosmiconfig',
     'lodash-es',
+    'jsonc-parser',
+    '@cozy-console/mini',
   ],
 })

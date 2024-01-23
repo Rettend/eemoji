@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@cozy-console/mini':
+    specifier: ^0.0.1
+    version: 0.0.1
   citty:
     specifier: ^0.1.4
     version: 0.1.5
@@ -14,6 +17,9 @@ dependencies:
   cosmiconfig:
     specifier: ^8.3.6
     version: 8.3.6(typescript@5.3.3)
+  jsonc-parser:
+    specifier: ^3.2.0
+    version: 3.2.0
   lodash-es:
     specifier: ^4.17.21
     version: 4.17.21
@@ -55,9 +61,6 @@ devDependencies:
   unbuild:
     specifier: ^2.0.0
     version: 2.0.0(typescript@5.3.3)
-  vite:
-    specifier: ^5.0.2
-    version: 5.0.12(@types/node@20.11.5)
   vitest:
     specifier: ^1.2.1
     version: 1.2.1(@types/node@20.11.5)(@vitest/ui@1.2.1)
@@ -357,6 +360,10 @@ packages:
       '@babel/helper-validator-identifier': 7.22.20
       to-fast-properties: 2.0.0
     dev: true
+
+  /@cozy-console/mini@0.0.1:
+    resolution: {integrity: sha512-NqMvwdyNVV31tnsZDNhBx1bykEj4lcKd4C6F6QXRqzcmuEnZ9XJuEGRx1BUMdrrJzQhV0+Uijv/0fnp0qOTNAw==}
+    dev: false
 
   /@es-joy/jsdoccomment@0.41.0:
     resolution: {integrity: sha512-aKUhyn1QI5Ksbqcr3fFJj16p99QdjUxXAEuFst1Z47DRyoiMwivIH9MV/ARcJOCXVjPfjITciej8ZD2O/6qUmw==}
@@ -2999,7 +3006,6 @@ packages:
 
   /jsonc-parser@3.2.0:
     resolution: {integrity: sha512-gfFQZrcTc8CnKXp6Y4/CBT3fTc0OVuDofpre4aEeEpSBPV5X5v4+Vmx+8snU7RLPrNHPKSgLxGo9YuQzz20o+w==}
-    dev: true
 
   /jsonfile@6.1.0:
     resolution: {integrity: sha512-5dgndWOriYSm5cnYaJNhalLNDKOqFwyDB/rr1E9ZsGciGvKPs8R2xYGCacuf3z6K1YKDz182fd+fY3cn3pMqXQ==}

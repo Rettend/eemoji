@@ -4,8 +4,8 @@ import process from 'node:process'
 import { defineCommand } from 'citty'
 import { consola } from 'consola'
 import { name } from '../../package.json'
-import type { ConfigType, JsFiles, JsonFiles } from './../config'
-import { ConfigObject, configTypes } from './../config'
+import type { ConfigType, JsFiles, JsonFiles } from '../config'
+import { ConfigObject, configTypes } from '../config'
 
 const C = new ConfigObject()
 

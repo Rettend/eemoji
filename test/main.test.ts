@@ -1,4 +1,3 @@
-// import the function and the default config
 import { describe, expect, it } from 'vitest'
 import { eemojify, unemojify } from '../src/utils/emoji'
 import { type Config, ConfigObject } from '../src/config'
