@@ -1,6 +1,5 @@
 import * as fs from 'node:fs'
 import * as path from 'node:path'
-import process from 'node:process'
 import { defineCommand } from 'citty'
 import { consola } from 'consola'
 import { name } from '../../package.json'
@@ -22,68 +21,78 @@ export default defineCommand({
     },
   },
   async run(ctx) {
-    checkGitHook()
+    console.time('init')
+    await checkGitHook(!ctx.args.config) // if config is not specified, perform a clean init
+    const configType = (ctx.args.config ? ctx.args.config : 'none') as ConfigType
 
-    const options = {
-      label: {
-        ts: 'TypeScript',
-        json: 'JSON',
-        none: 'None',
-      },
-      hint: {
-        ts: 'for Node.js projects',
-        json: 'when installed globally for any project',
-        none: 'don\'t create a config file, use the default',
-      },
-    }
+    if (configType !== 'none') {
+      const options = {
+        label: {
+          ts: 'TypeScript',
+          json: 'JSON',
+          none: 'None',
+        },
+        hint: {
+          ts: 'for Node.js projects',
+          json: 'when installed globally for any project',
+          none: 'don\'t create a config file, use the default',
+        },
+      }
 
-    const configType = ctx.args.config as ConfigType
-    const selectedConfigType = configTypes.includes(configType)
-      ? configType
-      : await consola.prompt('Which config would you like to use?', {
-        type: 'select',
-        options: configTypes.map(type => ({
-          value: type,
-          label: options.label[type],
-          hint: options.hint[type],
-        })),
-      })
+      const selectedConfigType = configTypes.includes(configType)
+        ? configType
+        : await consola.prompt('Which config would you like to use?', {
+          type: 'select',
+          options: configTypes.map(type => ({
+            value: type,
+            label: options.label[type],
+            hint: options.hint[type],
+          })),
+        })
 
-    if (selectedConfigType === 'json') {
-      if (await consola.prompt('Add JSON schema for types? (VSCode only)', {
-        type: 'confirm',
-        initial: true,
-      }))
-        checkJsonSchema()
+      if (selectedConfigType === 'json') {
+        if (await consola.prompt('Add JSON schema for types? (VSCode only)', {
+          type: 'confirm',
+          initial: true,
+        }))
+          checkJsonSchema()
 
-      createConfigFile(C.jsonFiles[0], JSON.stringify(C.defaultConfig, null, 2))
-    }
-    else if (selectedConfigType === 'ts') {
-      createConfigFile(C.jsFiles[0], C.defaultTsConfig)
+        createConfigFile(C.jsonFiles[0], JSON.stringify(C.defaultConfig, null, 2))
+      }
+      else if (selectedConfigType === 'ts') {
+        createConfigFile(C.jsFiles[0], C.defaultTsConfig)
+      }
     }
 
     consola.success('Initialized eemoji!')
+    console.timeEnd('init')
   },
 })
 
 function createConfigFile(filename: JsonFiles | JsFiles, content: string): void {
-  const filePath = path.join(process.cwd(), filename)
+  const filePath = path.join(C.cwd, filename)
   fs.writeFileSync(filePath, `${content}\n`)
 }
 
-function checkGitHook() {
+async function checkGitHook(clean: boolean | undefined) {
   if (!fs.existsSync(C.hooksDir)) {
     fs.mkdirSync(C.hooksDir)
     consola.success('Created: .git/hooks')
   }
 
-  try {
-    fs.copyFileSync(C.entryFile, C.hookFile)
-    fs.chmodSync(C.hookFile, '755')
+  if (clean) {
+    createHookFile()
   }
-  catch (err: any) {
-    consola.error(err)
+  else {
+    if (!fs.existsSync(C.hookFile))
+      createHookFile()
   }
+}
+
+function createHookFile() {
+  fs.copyFileSync(C.entryFile, C.hookFile)
+  fs.chmodSync(C.hookFile, '755')
+  consola.success(`Created: ${C.hookFile}`)
 }
 
 function checkJsonSchema() {
@@ -108,7 +117,8 @@ function checkJsonSchema() {
         fs.mkdirSync('.vscode')
       fs.writeFileSync(C.vscodeSettingsFile, JSON.stringify(C.vscodeSettings, null, 2))
     }
-
-    else { consola.error(err) }
+    else {
+      consola.error(err)
+    }
   }
 }

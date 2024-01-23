@@ -37,7 +37,7 @@
   "scripts": {
     "build": "unbuild",
     "stub": "unbuild --stub",
-    "dev": "npx eemoji",
+    "dev": "node ./bin/eemoji.mjs",
     "test": "vitest",
     "test:ui": "vitest --ui --coverage --api 9527",
     "lint": "eslint .",
