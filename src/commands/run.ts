@@ -4,7 +4,7 @@ import { defineCommand } from 'citty'
 import { consola } from 'consola'
 import { cosmiconfig } from 'cosmiconfig'
 import { name } from '../../package.json'
-import { createExampleCommitMessage, eemojify, unemojify } from '../utils/emoji'
+import { createExampleCommitMessage, eemojify, unemojify } from '../eemoji'
 import { type Config, ConfigObject } from '../config'
 
 const C = new ConfigObject()

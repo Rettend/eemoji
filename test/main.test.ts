@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { eemojify, unemojify } from '../src/utils/emoji'
+import { eemojify, unemojify } from '../src/eemoji'
 import { type Config, ConfigObject } from '../src/config'
 
 const C = new ConfigObject()
