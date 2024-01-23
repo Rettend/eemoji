@@ -43,8 +43,9 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "typecheck": "tsc --noEmit",
+    "schema": "tsx scripts/schema",
     "release": "bumpp && unbuild && pnpm publish",
-    "postinstall": "node ./bin/postinstall.cjs",
+    "postinstall": "node ./bin/eemoji.mjs init -c none",
     "preuninstall": "node ./bin/eemoji.mjs cleanup",
     "prepare": "simple-git-hooks"
   },
@@ -67,6 +68,7 @@
     "eslint": "^8.56.0",
     "lint-staged": "^15.2.0",
     "simple-git-hooks": "^2.9.0",
+    "tsx": "^4.7.0",
     "typescript": "5.3.3",
     "unbuild": "^2.0.0",
     "vitest": "^1.2.1"

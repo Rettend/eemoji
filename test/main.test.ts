@@ -6,6 +6,7 @@ const C = new ConfigObject()
 
 const customConfig = {
   format: '{type} {emoji} - {subject}',
+  strict: true,
   emojis: {
     fix: '🔨', // override nested emoji with a single one
     feat: {

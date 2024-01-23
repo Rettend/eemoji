@@ -30,15 +30,13 @@ jobs:
           cache: pnpm
 
       - name: Install eemoji
-        env:
-          SKIP_POSTINSTALL: true
         run: pnpm i
 
       - name: Build eemoji
         run: pnpm run build
 
       - name: Setup eemoji
-        run: node ./bin/eemoji.mjs init -c none
+        run: pnpm run postinstall
 
       - name: Set git bot
         run: |
