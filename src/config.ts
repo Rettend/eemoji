@@ -21,6 +21,7 @@ type EmojiType = StringOrOptionalProp<typeof emojis> & { breaking?: string }
 
 export interface Config {
   format: string
+  strict: boolean
   emojis: EmojiType
 }
 
@@ -37,6 +38,7 @@ export type JsonFiles = typeof ConfigObject.prototype.jsonFiles[number]
 export class ConfigObject {
   defaultConfig = {
     format: '{emoji} {type}: {subject}',
+    strict: true,
     emojis,
   } satisfies Config
 

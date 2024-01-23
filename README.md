@@ -165,7 +165,10 @@ The default configuration is here: [emojis.json](./src/emojis.json) and the [Emo
 
 This is used if no config file is found in the project.
 
-Apart from emojis, the config also specifies the format of the commit message, see [Format](#format).
+Apart from emojis, the config also specifies other things, like:
+
+- `format`: the format of the commit message, see [Format](#format).
+- `strict`: enforce formatting, and only allow commits with emojis (default: `true`)
 
 `eemoji` can be configured two different ways: [json](#json-config) and [typescript](#ts-config) config files.
 

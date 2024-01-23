@@ -33,17 +33,24 @@ export function eemojify(text: string, config: Config, DEBUG?: number): string {
     consola.log(`subject: "${subject}"`)
   }
 
-  if (!type || !subject)
-    throw new Error('Invalid commit message.')
+  if (!type || !subject) {
+    if (config.strict)
+      throw new Error(`Invalid commit message. Expected format: "${config.format}"`)
+    else
+      return text
+  }
 
   let emoji = getEmoji(type, text, config, DEBUG)
-  consola.log('emoji')
 
   if (DEBUG)
     consola.log(`emoji: "${emoji}"`)
 
-  if (!emoji)
-    throw new Error(`Emoji for type "${type}" not found.`)
+  if (!emoji) {
+    if (config.strict)
+      throw new Error(`Emoji for type "${type}" not found.`)
+    else
+      return text
+  }
 
   if (emoji.includes(','))
     emoji = emoji.trim().split(',')[Math.floor(Math.random() * emoji.split(',').length)] ?? emoji
