@@ -1,6 +1,6 @@
-import { type Config, defineConfig } from 'eemoji'
+import { defineDefaultConfig } from 'eemoji'
 
-export default defineConfig({
+export default defineDefaultConfig({
   emojis: {
     add: {
       '.': '➕',
@@ -18,5 +18,4 @@ export default defineConfig({
       update: '👍',
     },
   },
-} satisfies Partial<Config>,
-)
+})

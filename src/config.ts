@@ -2,7 +2,7 @@ import * as path from 'node:path'
 import process from 'node:process'
 import { fileURLToPath } from 'node:url'
 import { dirname } from 'node:path'
-import { merge } from 'lodash-es'
+import { merge, mergeWith } from 'lodash-es'
 import { name } from '../package.json'
 import emojis from './emojis.json'
 
@@ -42,9 +42,9 @@ export class ConfigObject {
     emojis,
   } satisfies Config
 
-  defaultTsConfig = `import { defineConfig } from 'eemoji'
+  defaultTsConfig = `import { defineDefaultConfig } from 'eemoji'
 
-export default defineConfig({
+export default defineDefaultConfig({
   format: '{emoji} {type}: {subject}', // this is the default format (you can remove it or change it)
   emojis: {}, // this gets merged with the default emojis (use it to override emojis or add new ones)
 })
@@ -96,6 +96,15 @@ export default defineConfig({
 }
 
 export function defineConfig(config: Partial<Config>): Config {
+  const defaultConfig = new ConfigObject().defaultConfig
+
+  return mergeWith({}, defaultConfig, config, (_objValue, srcValue, key) => {
+    if (key === 'emojis')
+      return srcValue
+  })
+}
+
+export function defineDefaultConfig(config: Partial<Config>): Config {
   const defaultConfig = new ConfigObject().defaultConfig
 
   return merge({}, defaultConfig, config)
