@@ -62,7 +62,7 @@ export function eemojify(text: string, config: Config, DEBUG?: number): string {
 }
 
 function getEmoji(type: string, text: string, config: Config, DEBUG?: number): string | undefined {
-  if (text.includes('!') && config.emojis.breaking)
+  if (text.includes('!') && config.emojis.breaking && typeof config.emojis.breaking === 'string')
     return config.emojis.breaking
 
   type = type.toLowerCase().replace(/\(.*\)/, '').trim()

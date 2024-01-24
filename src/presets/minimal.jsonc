@@ -1,0 +1,32 @@
+{
+  "fix": {
+    ".": "🔧", // general fix
+    "typo": "✏️", // fixed typo in code, docs, ui, etc.
+    "bug": "🐛" // fixed a bug
+  },
+  "chore": {
+    ".": "🗑️", // did some chores
+    "release": "🔖", // new release commit (pairs well with [bumpp](https://github.com/antfu/bumpp))
+    "cleanup": "🧹", // cleaned up code, removed logs and debug stuff, made everyting ready for production
+    "license": "📜", // changed the license
+    "deps": "📦" // changed dependencies
+  },
+  "feat": "✨", // introduced a new feature
+  "docs": "📝", // documentation changes
+  "test": "🧪", // worked on tests
+  "refactor": "♻️", // refactored code, achieved the same with less
+  "deps": {
+    ".": "📦", // added/removed/changed dependencies
+    "up": "⬆️", // updated dependencies
+    "down": "⬇️" // downgraded dependencies
+  },
+  "build": {
+    ".": "🦺", // work regarding build processes
+    "deps": "📦" // dependabot PRs (see the prefix in the [dependabot.yml](./.github/dependabot.yml) file on how to add an emoji to our friend's PRs)
+  },
+  "init": "🎉", // started a new project!
+  "perf": "⚡", // improved performance, achieved the same faster
+  "breaking": "💥", // *special type:* will be used if the commit contains an exclamation mark (`!`), indicates breaking changes
+  "ci": "🦾", // changed workflow files, CI stuff
+  "revert": "⏪" // revert a commit
+}

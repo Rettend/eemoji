@@ -167,7 +167,7 @@ eemoji run
 
 ## 🦾 Config
 
-The default configuration is here: [emojis.jsonc](./src/emojis.jsonc) and the [Emojis](#-emojis) section.
+The default configuration is here: [default.jsonc](./src/presets/default.jsonc) and the [Emojis](#-emojis) section.
 
 This is used if no config file is found in the project.
 
@@ -339,17 +339,53 @@ If it continues to fail to work, try this as well and restart everything:
 
 ### Adding a new emoji
 
-To add a new emoji to the default config or modify it, please open an issue first.
+To add a new emoji to a preset (even the default config) or modify it, open an issue first.
 
 Then, if it's okay:
 
-- modify the [emojis.jsonc](./src/emojis.jsonc) file, add the emoji and a description
+- modify the [default.jsonc](./src/presets/default.jsonc) file, add the emoji and a description
 - The Action will take care of the rest (copying it to the json, updating the readme emoji table and the json schema)
 - open a PR
 
 ### Creating a new emoji preset
 
-SOON™️
+Add a new `jsonc` file to the **presets** folder and name it as you wish.
+Describe the emoji using comments.
+
+Example:
+
+```json
+{
+  "fix": "🔧", // general fix
+  "feat": "✨" // introduced a new feature
+}
+```
+
+Locate the [presets.ts](./src/presets.ts) file and add your preset like this:
+
+```ts
+export const [
+  presetDefault,
+  presetMinimal,
+  /* ... */
+
+  // add your presetSomething here
+] = createPresets([
+  'default.jsonc',
+  'minimal.jsonc',
+  /* ... */
+
+  // make sure the path is relative to the root of the project
+]) as [
+  Preset,
+  Preset,
+  /* ... */
+
+  // and make TypeScript happy
+]
+```
+
+Then, open a PR.
 
 ### Development
 

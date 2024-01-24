@@ -1,10 +1,10 @@
 import * as fs from 'node:fs'
-import * as path from 'node:path'
 import { defineCommand } from 'citty'
 import { consola } from 'consola'
 import { name } from '../../package.json'
 import type { ConfigType, JsFiles, JsonFiles } from '../config'
 import { ConfigObject, configTypes } from '../config'
+import { r } from '../utils/utils'
 
 const C = new ConfigObject()
 
@@ -68,8 +68,7 @@ export default defineCommand({
 })
 
 function createConfigFile(filename: JsonFiles | JsFiles, content: string): void {
-  const filePath = path.join(C.cwd, filename)
-  fs.writeFileSync(filePath, `${content}\n`)
+  fs.writeFileSync(r(filename), `${content}\n`)
 }
 
 async function checkGitHook(clean: boolean | undefined) {

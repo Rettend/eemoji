@@ -15,6 +15,6 @@
 - [x] make the consola start and success logs sane in the cleanup command
 - [x] investigate speed, prepare script for init
 - [x] move bin scripts to `scripts` folder and also build them from typescript
-- [x] Generate the readme emoji table from `emojis.jsonc` (jsonc for description)
-- [ ] overwrite the default emojis in ts config too (import the default emojis, import other presets)
+- [x] Generate the readme emoji table from `default.jsonc` (jsonc for description)
+- [x] overwrite the default emojis in ts config too (import the default emojis, import other presets)
 - [ ] try astro and create a small website explaining which emoji to use and when, + stuff

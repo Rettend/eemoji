@@ -1,10 +1,10 @@
 import * as path from 'node:path'
-import process from 'node:process'
 import { fileURLToPath } from 'node:url'
 import { dirname } from 'node:path'
-import { merge, mergeWith } from 'lodash-es'
+import { isArray, merge } from 'lodash-es'
 import { name } from '../package.json'
-import emojis from './emojis.json'
+import { r } from './utils/utils'
+import emojis from './presets/default.json'
 
 globalThis.__eemoji_pkg__ = globalThis.__eemoji_pkg__ || {
   entryDir: dirname(fileURLToPath(import.meta.url)),
@@ -15,15 +15,22 @@ type PipePropName<T> = T extends `${infer First}|${infer _}` ? First : T
 type StringOrOptionalProp<T> = {
   [K in keyof T as K extends 'breaking' ? never :
     PipePropName<K>]: T[K] | Record<string, string>
-} | Record<string, string | Record<string, string>>
+}
 
-type EmojiType = StringOrOptionalProp<typeof emojis> & { breaking?: string }
+type EmojiType = StringOrOptionalProp<typeof emojis> & { breaking: string }
+export type EmojiConfig = Record<string, string | Record<string, string>>
 
-export interface Config {
+type DefineConfig = Partial<{
   format: string
   strict: boolean
-  emojis: EmojiType
-}
+  emojis: EmojiType | EmojiConfig | EmojiConfig[]
+}>
+
+export type Config = Required<{
+  [K in keyof DefineConfig]: DefineConfig[K] extends infer U
+    ? U extends unknown[] ? never : U
+    : never
+}>
 
 export const configTypes = [
   'ts',
@@ -87,25 +94,34 @@ export default defineDefaultConfig({
     ],
   }
 
-  cwd = process.env.INIT_CWD || process.cwd()
-  vscodeSettingsFile = path.join(this.cwd, '.vscode/settings.json')
-  gitCommitFile = path.join(this.cwd, '.git/COMMIT_EDITMSG')
-  hooksDir = path.join(this.cwd, '.git/hooks')
-  hookFile = path.join(this.cwd, '.git/hooks/prepare-commit-msg')
+  vscodeSettingsFile = r('.vscode/settings.json')
+  gitCommitFile = r('.git/COMMIT_EDITMSG')
+  hooksDir = r('.git/hooks')
+  hookFile = r('.git/hooks/prepare-commit-msg')
   entryFile = path.join(globalThis.__eemoji_pkg__.entryDir, 'hook.sh')
 }
 
-export function defineConfig(config: Partial<Config>): Config {
+export function defineConfig(config: DefineConfig): Config {
   const defaultConfig = new ConfigObject().defaultConfig
+  const emojis = mergeEmojis(config.emojis) || defaultConfig.emojis
 
-  return mergeWith({}, defaultConfig, config, (_objValue, srcValue, key) => {
-    if (key === 'emojis')
-      return srcValue
-  })
+  return {
+    ...defaultConfig,
+    ...config,
+    emojis,
+  }
 }
 
-export function defineDefaultConfig(config: Partial<Config>): Config {
+export function defineDefaultConfig(config: DefineConfig): Config {
   const defaultConfig = new ConfigObject().defaultConfig
+  const emojis = mergeEmojis(config.emojis)
 
-  return merge({}, defaultConfig, config)
+  return merge({}, defaultConfig, config, { emojis })
+}
+
+function mergeEmojis(emojis: DefineConfig['emojis']): EmojiConfig {
+  if (isArray(emojis))
+    return emojis.reduce((acc, cur) => merge(acc, cur), {})
+
+  return emojis || {}
 }

@@ -7,7 +7,7 @@ on:
     branches: [main]
     paths:
       - src/config.ts
-      - src/emojis.jsonc
+      - src/presets/default.jsonc
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:

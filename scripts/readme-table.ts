@@ -1,6 +1,5 @@
 import fs from 'node:fs'
 import process from 'node:process'
-import path from 'node:path'
 import type {
   CommentArray,
   CommentDescriptor,
@@ -9,17 +8,17 @@ import type {
 } from 'comment-json'
 import { parse } from 'comment-json'
 import { markdownTable } from 'markdown-table'
-import emojis from '../src/emojis.json'
+import emojis from '../src/presets/default.json'
+import { r } from '../src/utils/utils'
 
-const cwd = process.env.INIT_CWD || process.cwd()
-const eemojiPath = path.join(cwd, 'src/emojis.jsonc')
-const readmePath = path.join(cwd, 'README.md')
+const eemojiPath = r('src/presets/default.jsonc')
+const readmePath = r('README.md')
 
 const emojiFile = fs.readFileSync(eemojiPath, 'utf8')
 const emojiJsonc = parse(emojiFile)
 
 if (!emojiJsonc) {
-  console.error('Failed to parse emojis.jsonc')
+  console.error('Failed to parse default.jsonc')
   process.exit(1)
 }
 
