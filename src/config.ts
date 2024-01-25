@@ -1,14 +1,18 @@
 import * as path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { dirname } from 'node:path'
 import { isArray, merge } from 'lodash-es'
 import { name } from '../package.json'
 import { r } from './utils/utils'
 import emojis from './presets/default.json'
 
-globalThis.__eemoji_pkg__ = globalThis.__eemoji_pkg__ || {
-  entryDir: dirname(fileURLToPath(import.meta.url)),
-}
+const entryDir = path.dirname(fileURLToPath(
+  new URL(
+    import.meta.url.endsWith('.ts')
+      ? '../bin/eemoji.mjs'
+      : '../../bin/eemoji.mjs',
+    import.meta.url,
+  ),
+))
 
 type PipePropName<T> = T extends `${infer First}|${infer _}` ? First : T
 
@@ -98,7 +102,8 @@ export default defineDefaultConfig({
   gitCommitFile = r('.git/COMMIT_EDITMSG')
   hooksDir = r('.git/hooks')
   hookFile = r('.git/hooks/prepare-commit-msg')
-  entryFile = path.join(globalThis.__eemoji_pkg__.entryDir, 'hook.sh')
+  entryDir = entryDir
+  entryFile = path.join(this.entryDir, 'hook.sh')
 }
 
 export function defineConfig(config: DefineConfig): Config {

@@ -16,7 +16,7 @@ This is a tiny CLI tool that automatically adds emojis to your commit messages b
 
 ## 😎 Emojis
 
-Hi, read the `README.md` first (starting with [Install](#-install)). This emoji table is for quick reference.
+Hi, read the `README.md` first (starting with [Install](#-install)). This emoji table is for quick reference. Btw it's generated from the [default.jsonc](./src/presets/default.jsonc) file.
 
 <details open>
 <summary><b>Close/open gigantic table</b></summary>
@@ -373,7 +373,7 @@ Then, if it's okay:
 
 ### Creating a new emoji preset
 
-Add a new `jsonc` file to the **presets** folder and name it as you wish.
+Add a new `jsonc` (note the `c` at the end) file to the **presets** folder and name it as you wish.
 Describe the emoji using comments.
 
 Example:
@@ -395,11 +395,11 @@ export const [
 
   // add your presetSomething here
 ] = createPresets([
-  'default.jsonc',
-  'minimal.jsonc',
+  'default',
+  'minimal',
   /* ... */
 
-  // make sure the path is relative to the root of the project
+  // add your file name here (without the .jsonc extension)
 ]) as [
   Preset,
   Preset,
@@ -409,7 +409,7 @@ export const [
 ]
 ```
 
-Then, open a PR.
+Then open a PR, the Action will take care of the rest.
 
 ### Development
 

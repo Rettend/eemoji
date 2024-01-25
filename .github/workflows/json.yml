@@ -1,5 +1,5 @@
 # Simple workflow for deploying static content to GitHub Pages
-name: Deploy JSON Schema to Pages
+name: Deploy JSON and Update
 
 on:
   # Runs on pushes targeting the default branch, when certain files are modified
@@ -7,6 +7,7 @@ on:
     branches: [main]
     paths:
       - src/config.ts
+      - src/presets.ts
       - src/presets/default.jsonc
 
   # Allows you to run this workflow manually from the Actions tab

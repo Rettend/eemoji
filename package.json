@@ -28,17 +28,18 @@
     "dist"
   ],
   "scripts": {
-    "build": "unbuild",
-    "stub": "unbuild --stub",
+    "build": "unbuild && pnpm run gen:presets",
+    "stub": "unbuild --stub && pnpm run gen:presets",
     "dev": "node ./bin/eemoji.mjs",
     "test": "vitest",
     "test:ui": "vitest --ui --coverage --api 9527",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "typecheck": "tsc --noEmit",
+    "gen:presets": "tsx scripts/presets",
     "gen:schema": "tsx scripts/schema",
     "gen:table": "tsx scripts/readme-table",
-    "release": "bumpp && unbuild && pnpm publish",
+    "release": "bumpp && pnpm run build && pnpm publish",
     "postinstall": "node ./bin/eemoji.mjs init -c none",
     "preuninstall": "node ./bin/eemoji.mjs cleanup",
     "prepare": "simple-git-hooks"

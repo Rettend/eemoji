@@ -1,14 +1,13 @@
 import * as fs from 'node:fs'
-import * as jsonc from 'jsonc-parser'
-import type { EmojiConfig } from './config'
-import { r } from './utils/utils'
+import { dirname, join } from 'node:path'
+import { ConfigObject, type EmojiConfig } from './config'
 
+const C = new ConfigObject()
 type Preset = () => EmojiConfig
-type PathLiteral = `${string}.jsonc`
 
-function createPresets(pathes: PathLiteral[]) {
+function createPresets(pathes: string[]): Preset[] {
   return pathes.map((path) => {
-    const config: EmojiConfig = jsonc.parse(fs.readFileSync(r(`src/presets/${path}`), 'utf-8'))
+    const config: EmojiConfig = JSON.parse(fs.readFileSync(join(dirname(C.entryDir), 'dist', 'presets', `${path}.json`), 'utf8'))
     return () => ({ ...config })
   })
 }
@@ -18,9 +17,9 @@ export const [
   presetMinimal,
   presetAoc,
 ] = createPresets([
-  'default.jsonc',
-  'minimal.jsonc',
-  'aoc.jsonc',
+  'default',
+  'minimal',
+  'aoc',
 ]) as [
   Preset,
   Preset,
