@@ -184,6 +184,9 @@ This way your emojis will be merged with the default ones.
 
 Use the `init` command and select the `ts` config type.
 
+- `defineDefaultConfig`: use this to append your emojis to the default ones
+- `defineConfig`: use this to define your own config, without the default emojis
+
 `eemoji` will look for these config files:
 
 - `eemoji.config.ts`
@@ -293,6 +296,27 @@ Commit message:
 
 - before: `chore(deps): update eslint`
 - after: `📦 chore(deps): update eslint`
+
+### Presets
+
+You can use presets, which are just functions with emoji objects that are included in the package.
+
+> [!NOTE]
+> The `emojis` property can be an array of presets and objects
+
+```ts
+import { defineConfig, presetDefault } from 'eemoji'
+
+export default defineConfig({
+  emojis: [
+    presetDefault(),
+    {
+      feat: '✨',
+      fix: '🔧'
+    }
+  ]
+})
+```
 
 ### JSON Config
 
