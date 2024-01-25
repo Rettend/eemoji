@@ -22,9 +22,9 @@ export default defineCommand({
   },
   async run(ctx) {
     await checkGitHook(!ctx.args.config) // if config is not specified, perform a clean init
-    const configType = (ctx.args.config ? ctx.args.config : 'none') as ConfigType
+    let configType = ctx.args.config as ConfigType | undefined
 
-    if (configType !== 'none') {
+    if (!configType && configType !== 'none') {
       const options = {
         label: {
           ts: 'TypeScript',
@@ -38,29 +38,27 @@ export default defineCommand({
         },
       }
 
-      const selectedConfigType = configTypes.includes(configType)
-        ? configType
-        : await consola.prompt('Which config would you like to use?', {
-          type: 'select',
-          options: configTypes.map(type => ({
-            value: type,
-            label: options.label[type],
-            hint: options.hint[type],
-          })),
-        })
+      configType = await consola.prompt('Which config would you like to use?', {
+        type: 'select',
+        options: configTypes.map(type => ({
+          value: type,
+          label: options.label[type],
+          hint: options.hint[type],
+        })),
+      }) as unknown as ConfigType // consola.prompt types are wrong
+    }
 
-      if (selectedConfigType === 'json') {
-        if (await consola.prompt('Add JSON schema for types? (VSCode only)', {
-          type: 'confirm',
-          initial: true,
-        }))
-          checkJsonSchema()
+    if (configType === 'json') {
+      if (await consola.prompt('Add JSON schema for types? (VSCode only)', {
+        type: 'confirm',
+        initial: true,
+      }))
+        checkJsonSchema()
 
-        createConfigFile(C.jsonFiles[0], JSON.stringify(C.defaultConfig, null, 2))
-      }
-      else if (selectedConfigType === 'ts') {
-        createConfigFile(C.jsFiles[0], C.defaultTsConfig)
-      }
+      createConfigFile(C.jsonFiles[0], JSON.stringify(C.defaultConfig, null, 2))
+    }
+    else if (configType === 'ts') {
+      createConfigFile(C.jsFiles[0], C.defaultTsConfig)
     }
 
     consola.success('Initialized eemoji!')
