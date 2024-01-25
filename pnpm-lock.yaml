@@ -47,8 +47,8 @@ devDependencies:
     specifier: ^4.2.3
     version: 4.2.3
   eemoji:
-    specifier: ^1.1.5
-    version: 1.1.5(typescript@5.3.3)
+    specifier: ^2.0.0
+    version: 2.0.0(typescript@5.3.3)
   eslint:
     specifier: ^8.56.0
     version: 8.56.0
@@ -372,7 +372,6 @@ packages:
 
   /@cozy-console/mini@0.0.1:
     resolution: {integrity: sha512-NqMvwdyNVV31tnsZDNhBx1bykEj4lcKd4C6F6QXRqzcmuEnZ9XJuEGRx1BUMdrrJzQhV0+Uijv/0fnp0qOTNAw==}
-    dev: false
 
   /@es-joy/jsdoccomment@0.41.0:
     resolution: {integrity: sha512-aKUhyn1QI5Ksbqcr3fFJj16p99QdjUxXAEuFst1Z47DRyoiMwivIH9MV/ARcJOCXVjPfjITciej8ZD2O/6qUmw==}
@@ -1956,14 +1955,16 @@ packages:
     engines: {node: '>=12'}
     dev: true
 
-  /eemoji@1.1.5(typescript@5.3.3):
-    resolution: {integrity: sha512-BI7qWK3J78MToUeny503k5WeXFQtDs+bucy1zCkPcDeKT9ZtL7kRjrAmyqnL8oSyNRG3JItxumpXUIw/CFo0ig==}
+  /eemoji@2.0.0(typescript@5.3.3):
+    resolution: {integrity: sha512-rg5EKl1tXBF4ctV0ksKp3In2yJ42YkNQYTu0tpQsinRO2rei2QzwvxWK+snxftL1d7CO81gVhkZVK666I9nhcw==}
     hasBin: true
     requiresBuild: true
     dependencies:
+      '@cozy-console/mini': 0.0.1
       citty: 0.1.5
       consola: 3.2.3
       cosmiconfig: 8.3.6(typescript@5.3.3)
+      jsonc-parser: 3.2.0
       lodash-es: 4.17.21
     transitivePeerDependencies:
       - typescript
