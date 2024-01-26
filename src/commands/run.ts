@@ -77,7 +77,8 @@ export default defineCommand({
       }
     }
     catch (err: any) {
-      consola.error(err)
+      fs.writeFileSync(C.statusFile, '1')
+      consola.error(err.message)
     }
   },
 })

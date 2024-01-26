@@ -101,6 +101,7 @@ export default defineDefaultConfig({
   gitCommitFile = r('.git/COMMIT_EDITMSG')
   hooksDir = r('.git/hooks')
   hookFile = r('.git/hooks/prepare-commit-msg')
+  statusFile = r('.git/.eemoji-status')
   entryDir = entryDir
   entryFile = path.join(this.entryDir, 'hook.sh')
 }
