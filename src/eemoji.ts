@@ -81,7 +81,7 @@ function getEmoji(type: string, text: string, config: Config, DEBUG?: number): s
     text = text.toLowerCase()
 
     for (const [key, value] of entries) {
-      if (text === key.toLowerCase())
+      if (text.includes(key.toLowerCase()))
         return value
     }
 
