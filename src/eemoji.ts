@@ -66,7 +66,7 @@ function getEmoji(type: string, text: string, config: Config, DEBUG?: number): s
     return config.emojis.breaking
 
   type = type.toLowerCase().replace(/\(.*\)/, '').trim()
-  const emojiKey = Object.keys(config.emojis).find(key => key.split('|').includes(type))
+  const emojiKey = Object.keys(config.emojis).find(key => key.includes(type))
 
   if (!emojiKey)
     return undefined
@@ -81,7 +81,7 @@ function getEmoji(type: string, text: string, config: Config, DEBUG?: number): s
     text = text.toLowerCase()
 
     for (const [key, value] of entries) {
-      if (key.split('|').some(k => text.includes(k.toLowerCase())))
+      if (text === key.toLowerCase())
         return value
     }
 

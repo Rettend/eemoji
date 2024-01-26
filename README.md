@@ -249,7 +249,6 @@ This is useful for conventional commit scopes, but you can include the subtype a
 Notes:
 
 - the `'.'` is the fallback subtype
-- specify multiple aliases for a type by separating them with pipes: `feat|feature`
 - specify multiple emojis by separating them with commas and a **random** one will be chosen: `💎,💲,💸,💰`
 
 ```ts
@@ -257,20 +256,20 @@ import { defineConfig } from 'eemoji'
 
 export default defineConfig({
   emojis: {
-    'fix': {
+    fix: {
       '.': '🔧',
       'typo': '✏️',
       'bug': '🐛'
     },
-    'chore': {
+    chore: {
       '.': '🗑️',
       'release': '🔖',
       'cleanup': '🧹',
       'license': '📜',
       'deps': '📦'
     },
-    'feat|feature': '✨',
-    'bounty': '💎,💲,💸,💰'
+    feat: '✨',
+    bounty: '💎,💲,💸,💰'
   }
 })
 ```

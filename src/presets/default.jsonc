@@ -39,7 +39,7 @@
   "enhance": "💎", // made something a little better (omit from release notes)
   "test": "🧪", // worked on tests
   "refactor": "♻️", // refactored code, achieved the same with less
-  "init|initial": "🎉", // started a new project!
+  "init": "🎉", // started a new project!
   "perf": "⚡", // improved performance, achieved the same faster
   "breaking": "💥", // *special type:* will be used if the commit contains an exclamation mark (`!`), indicates breaking changes
   "ci": "🦾", // changed workflow files, CI stuff

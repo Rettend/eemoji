@@ -14,14 +14,13 @@ const entryDir = path.dirname(fileURLToPath(
   ),
 ))
 
-type PipePropName<T> = T extends `${infer First}|${infer _}` ? First : T
-
 type StringOrOptionalProp<T> = {
   [K in keyof T as K extends 'breaking' ? never :
-    PipePropName<K>]: T[K] | Record<string, string>
+    K]: T[K] | Record<string, string>
 }
 
 type EmojiType = StringOrOptionalProp<typeof emojis> & { breaking: string }
+
 export type EmojiConfig = Record<string, string | Record<string, string>>
 
 type DefineConfig = Partial<{
@@ -119,14 +118,15 @@ export function defineConfig(config: DefineConfig): Config {
 
 export function defineDefaultConfig(config: DefineConfig): Config {
   const defaultConfig = new ConfigObject().defaultConfig
-  const emojis = mergeEmojis(config.emojis)
+  const { emojis, ...rest } = config
+  const mergedEmojis = mergeEmojis(emojis)
 
-  return merge({}, defaultConfig, config, { emojis })
+  return merge({}, defaultConfig, rest, { emojis: mergedEmojis })
 }
 
 function mergeEmojis(emojis: DefineConfig['emojis']): EmojiConfig {
   if (isArray(emojis))
-    return emojis.reduce((acc, cur) => merge(acc, cur), {})
+    return merge({}, ...emojis)
 
   return emojis || {}
 }
