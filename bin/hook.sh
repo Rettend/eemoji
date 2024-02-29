@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/bin/bash
+
 LOCAL_PATH=$(npm root)
 NODE_PATH=$(npm root -g)
 REPO_ROOT=$(git rev-parse --show-toplevel)

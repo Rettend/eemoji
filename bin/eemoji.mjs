@@ -1,5 +1,5 @@
 #!/usr/bin/env node
 
-import { runMain } from './../dist/index.mjs'
+import { runMain } from 'eemoji'
 
 runMain()
