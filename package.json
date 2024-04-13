@@ -71,7 +71,8 @@
     "vitest": "^1.5.0"
   },
   "simple-git-hooks": {
-    "pre-commit": "pnpm lint-staged"
+    "pre-commit": "pnpm lint-staged",
+    "prepare-commit-msg": "./bin/hook.sh"
   },
   "lint-staged": {
     "*": "eslint --fix"
