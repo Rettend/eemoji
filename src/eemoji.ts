@@ -18,7 +18,7 @@ import type { Config } from './config'
  */
 export function eemojify(text: string, config: Config, DEBUG?: number): string {
   // the separator is whatever character remains after removing the format placeholders, or a space
-  const separator = config.format.replace(/{emoji}|{type}|{subject}/g, '').trim() || ' '
+  const separator = config.format.replace(/\{emoji\}|\{type\}|\{subject\}/g, '').trim() || ' '
 
   const separatorIndex = text.indexOf(separator)
   const type = text.substring(0, separatorIndex).trim()

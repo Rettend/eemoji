@@ -101,7 +101,7 @@ async function loadConfig(): Promise<Config> {
 
   if (!config.format)
     throw new Error('Format missing in config file.')
-  else if (!config.format.match(/{emoji}|{type}|{subject}/g))
+  else if (!config.format.match(/\{emoji\}|\{type\}|\{subject\}/g))
     throw new Error('Invalid format specified in config file.')
 
   return config
