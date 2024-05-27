@@ -16,7 +16,7 @@ export default defineDefaultConfig({
       'eemoji': '👍',
     },
     chore: {
-      update: '👍',
+      emojis: '👍',
     },
   },
 })
